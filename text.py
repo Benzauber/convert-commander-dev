@@ -14,7 +14,7 @@ def convert_file(input_file, output_file):
     command = [
         'libreoffice',
         '--headless',
-        '--convert-to', 'html',
+        '--convert-to', 'pdf',
         '--outdir', output_dir,
         input_file
     ]
@@ -28,7 +28,7 @@ def convert_file(input_file, output_file):
 
 if __name__ == "__main__":
     input_file = '/home/ben/convert-commander/test/pdfs/text.txt'
-    output_file = '/home/ben/convert-commander/test/pdfs/text.html'
+    output_file = '/home/ben/convert-commander/test/pdfs/text.pdf'
     
     # Debug-Ausgabe für das Arbeitsverzeichnis
     print(f"Arbeitsverzeichnis: {os.getcwd()}")
