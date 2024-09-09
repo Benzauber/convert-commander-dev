@@ -14,7 +14,7 @@ def convert_file(input_file, output_file):
     command = [
         'libreoffice',
         '--headless',
-        '--convert-to', 'pdf',
+        '--convert-to', 'odp',
         '--outdir', output_dir,
         input_file
     ]
@@ -27,8 +27,8 @@ def convert_file(input_file, output_file):
         print(f"Ausgabe: {e.stdout.decode()}")
 
 if __name__ == "__main__":
-    input_file = '/home/ben/convert-commander/test/pdfs/text.txt'
-    output_file = '/home/ben/convert-commander/test/pdfs/text.pdf'
+    input_file = '/home/ben/convert-commander/test/pdfs/Gotthardtunnel.pptx'
+    output_file = '/home/ben/convert-commander/test/pdfs/text.odp'
     
     # Debug-Ausgabe für das Arbeitsverzeichnis
     print(f"Arbeitsverzeichnis: {os.getcwd()}")

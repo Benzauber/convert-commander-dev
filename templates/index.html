@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dropdown Menu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main">
+        
+        <div class="dropdown1">
+            <button id="dropbtn1" class="dropbtn1">File Type</button>
+            <div class="dropdown-content1">
+                <input class="suche" type="text" onkeyup="filterFunction('dropdown-content1')" placeholder="Suche...">
+                <p onclick="setFileFunction('text', 'txt')">txt</p>
+                <p onclick="setFileFunction('text', 'odt')">odt</p>
+                <p onclick="setFileFunction('audio', 'mp3')">mp3</p>
+                <p onclick="setFileFunction('audio', 'wav')">wav</p>
+                <p onclick="setFileFunction('ppt', 'pptx')">pptx</p>
+                <p onclick="setFileFunction('ppt', 'odp')">odp</p>
+                <p onclick="setFileFunction('bild', 'png')">png</p>
+                <p onclick="setFileFunction('bild', 'jpg')">jpg</p>
+            </div>
+        </div>
+
+        <div class="dropdown2" onmouseover="meineFunktion()">
+            <button class="dropbtn2">File Type</button>
+            <div class="dropdown-content2" >
+                <input class="suche" type="text" onkeyup="filterFunction('dropdown-content2')" placeholder="Suche...">
+                <p class="text" onclick="setFileFunction('text', 'txt')">txt</p>
+                <p class="text" onclick="setFileFunction('text', 'odt')">odt</p>
+                <p class="audio" onclick="setFileFunction('audio', 'mp3')">mp3</p>
+                <p class="audio" onclick="setFileFunction('audio', 'wav')">wav</p>
+                <p class="ppt" onclick="setFileFunction('ppt', 'pptx')">pptx</p>
+                <p class="ppt" onclick="setFileFunction('ppt', 'odp')">odp</p>
+                <p class="bild" onclick="setFileFunction('bild', 'png')">png</p>
+                <p class="bild" onclick="setFileFunction('bild', 'jpg')">jpg</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
