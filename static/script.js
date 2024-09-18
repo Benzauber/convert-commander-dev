@@ -1,5 +1,8 @@
 var elementsDown1 = document.getElementsByClassName("dropdown-content1");
 var elementsDown2 = document.getElementsByClassName("dropdown-content2");
+var value = "";
+var valuename = "";
+
 
 function filterFunction(dropdownClass) {
     const input = document.querySelector(`.${dropdownClass} .suche`);
@@ -54,7 +57,8 @@ function setFileFunction(name, filename) {
     }
   }
 
-  return value;
+  return [value, valuename];
+
 }
 
 function meineFunktion() {
@@ -83,4 +87,20 @@ function meineFunktion() {
       elementsBild[i].style.display = value == "text" || value == "audio" || value == "ppt" ? "none" : "flex";
     }
     
+}
+function sendData(){
+  fetch('/empfange_daten', {
+ 
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        
+    },
+    body: JSON.stringify({ daten: valuename })
+
+  })
+  .then(response => response.json())
+  .then(data => console.log('Erfolg:', data))
+  .catch((error) => console.error('Fehler:', error));
+  console.log(value);
 }
