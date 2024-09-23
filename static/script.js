@@ -1,8 +1,9 @@
-var elementsDown1 = document.getElementsByClassName("dropdown-content1");
 var elementsDown2 = document.getElementsByClassName("dropdown-content2");
 var value = "";
 var valuename = "";
-
+var textGuppe = [".docx", ".txt", ".odt", ".html", ".htm", ".doc"];
+var tabelleGruppe = [".xls", ".xlsx", ".ods"];
+var persentGruppe = [".ppt", ".pptx", ".odp"];
 
 function filterFunction(dropdownClass) {
     const input = document.querySelector(`.${dropdownClass} .suche`);
@@ -13,8 +14,6 @@ function filterFunction(dropdownClass) {
     pElements.forEach(function (item) {
         item.style.display = "flex";
     });
-
-
 
     // Dann nur die Elemente filtern, die der Suchabfrage entsprechen
     pElements.forEach(function (item) {
@@ -38,16 +37,6 @@ function setFileFunction(name, filename) {
   console.log(value, valuename);
 
   if (
-    elementsDown1.length > 0 &&
-    window.getComputedStyle(elementsDown1[0]).display === "flex"
-  ) {
-    var dropbtn1 = document.getElementsByClassName("dropbtn1");
-    if (dropbtn1.length > 0) {
-      dropbtn1[0].innerHTML = valuename;
-    }
-  }
-
-  if (
     elementsDown2.length > 0 &&
     window.getComputedStyle(elementsDown2[0]).display === "flex"
   ) {
@@ -61,34 +50,51 @@ function setFileFunction(name, filename) {
 
 }
 
-function meineFunktion() {
-    var elementsText = document.getElementsByClassName("text");
-    var elementsAudio = document.getElementsByClassName("audio");
-    var elementsPPT = document.getElementsByClassName("ppt");
-    var elementsBild = document.getElementsByClassName("bild");
-    
-    // Verstecke oder zeige Text-Elemente basierend auf dem globalen Wert
-    for (var i = 0; i < elementsText.length; i++) {
-      elementsText[i].style.display = value == "audio" || value == "ppt" || value == "bild" ? "none" : "flex";
+document.getElementById('fileInput').addEventListener('change', function(event) {
+  const file = event.target.files[0];
+
+  if (file) {
+      const fileName = file.name; // Holt den Dateinamen
+      const fileExtension = '.' + fileName.split('.').pop(); // Holt die Dateiendung mit Punkt
+
+      console.log(`Dateiendung: ${fileExtension}`);
+      meineFunktion(fileExtension); // Funktion zum Steuern der Anzeige aufrufen
+  } else {
+      console.log('Keine Datei ausgewählt.');
+  }
+});
+
+function meineFunktion(name) {
+  var elementsText = document.getElementsByClassName("text");
+  var elementsExel = document.getElementsByClassName("exel");
+  var elementsPPT = document.getElementsByClassName("ppt");
+
+  if (textGuppe.includes(name)) {
+    for (var i = 0; i < elementsExel.length; i++) {
+      elementsExel[i].style.display = "none"; 
     }
-    
-    // Verstecke oder zeige Audio-Elemente basierend auf dem globalen Wert
-    for (var i = 0; i < elementsAudio.length; i++) {
-      elementsAudio[i].style.display = value == "text" || value == "ppt" || value == "bild" ? "none" : "flex";
-    }
-    
-    // Verstecke oder zeige PPT-Elemente basierend auf dem globalen Wert
     for (var i = 0; i < elementsPPT.length; i++) {
-      elementsPPT[i].style.display = value == "text" || value == "audio" || value == "bild" ? "none" : "flex";
+      elementsPPT[i].style.display = "none";
     }
-    
-    // Verstecke oder zeige Bild-Elemente basierend auf dem globalen Wert
-    for (var i = 0; i < elementsBild.length; i++) {
-      elementsBild[i].style.display = value == "text" || value == "audio" || value == "ppt" ? "none" : "flex";
+  } else if (tabelleGruppe.includes(name)) {
+    for (var i = 0; i < elementsPPT.length; i++) {
+      elementsPPT[i].style.display = "none";
     }
-    
+    for (var i = 0; i < elementsText.length; i++) {
+      elementsText[i].style.display = "none";
+    }
+  } else if (persentGruppe.includes(name)) {
+    for (var i = 0; i < elementsText.length; i++) {
+      elementsText[i].style.display = "none"; 
+    }
+    for (var i = 0; i < elementsExel.length; i++) {
+      elementsExel[i].style.display = "none";
+    }
+  }
 }
+
 function sendData(){
+  document.getElementById("submitButton").value = "Wird gesendet...";
   fetch('/empfange_daten', {
  
     method: 'POST',
@@ -105,15 +111,4 @@ function sendData(){
   console.log(value);
 }
 
-document.getElementById('fileInput').addEventListener('change', function(event) {
-  const file = event.target.files[0];
 
-  if (file) {
-      const fileType = file.type; // Holt den MIME-Typ
-      const fileName = file.name; // Holt den Dateinamen
-      console.log(`Dateityp: ${fileType}`);
-      console.log(`Dateiname: ${fileName}`);
-  } else {
-      console.log('Keine Datei ausgewählt.');
-  }
-});
