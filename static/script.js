@@ -104,3 +104,16 @@ function sendData(){
   .catch((error) => console.error('Fehler:', error));
   console.log(value);
 }
+
+document.getElementById('fileInput').addEventListener('change', function(event) {
+  const file = event.target.files[0];
+
+  if (file) {
+      const fileType = file.type; // Holt den MIME-Typ
+      const fileName = file.name; // Holt den Dateinamen
+      console.log(`Dateityp: ${fileType}`);
+      console.log(`Dateiname: ${fileName}`);
+  } else {
+      console.log('Keine Datei ausgewählt.');
+  }
+});

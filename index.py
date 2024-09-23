@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect, url_for, jsonify
+from flask import Flask, request, render_template, redirect, url_for, jsonify, send_file
 import os
 import text
 
@@ -11,6 +11,15 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 # Globale Variable zur Speicherung von filetest
 global_filetest = None
+
+def download_file(filepath, global_filetest):    
+    filename = os.path.splitext(os.path.basename(filepath))[0]
+    filethepath = f'/home/ben/convert-commander/test/pdfs/{filename}.{global_filetest}'
+    try:
+        print(filethepath)
+        return send_file(filethepath, as_attachment=True)
+    except Exception as e:
+        return str(e)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -28,12 +37,20 @@ def index():
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
             file.save(filepath)
             text.start(filepath, global_filetest)
-            global_filetest = None  # Zurücksetzen nach Verwendung
-            return redirect(url_for('index', status=f'Datei {file.filename} erfolgreich hochgeladen und verarbeitet'))
+
+            # Hier umleiten zur Download-Route
+            return redirect(url_for('download', filename=file.filename))
+        
         elif file:
             return redirect(url_for('index', status='Datei hochgeladen, aber filetest nicht verfügbar'))
-            
+
     return render_template('index.html', status=request.args.get('status'))
+
+@app.route('/download/<filename>', methods=['GET'])
+def download(filename):
+    global global_filetest
+    filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    return download_file(filepath, global_filetest)
 
 @app.route('/empfange_daten', methods=['POST'])
 def empfange_daten():
