@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,15 +8,16 @@
 </head>
 <body>
     <div class="main">
-        <!-- Hier wurde der div in ein form-Tag geändert -->
-        <form action="/" method="post" enctype="multipart/form-data">
-            <input type="file" name="file" id="fileInput" required>
+        <h1>Convert-Commander</h1>
+        <div class="button-container">
+            <div class="button-wrapper">
+                <form action="/" method="post" enctype="multipart/form-data">
+                <label class="buttons" for="fileInput" id="fileLabel">Datei auswählen</label>
+                <input type="file" name="file" id="fileInput" required onchange="updateFileName()">
+            </div>
             
-    
-
-            <!-- Zweites Dropdown -->
-            <div class="dropdown2" onmouseover="meineFunktion()">
-                <button class="dropbtn2">File Type</button>
+            <div class="button-wrapper dropdown2" onmouseover="meineFunktion()">
+                <div class="buttons dropbtn2" onclick="event.preventDefault(); meineFunktion()" id="file">File Type</div>
                 <div class="dropdown-content2">
                     <input class="suche" type="text" onkeyup="filterFunction('dropdown-content2')" placeholder="Suche...">
                     <p class="text" onclick="setFileFunction('text', 'txt')">txt</p>
@@ -25,30 +26,25 @@
                     <p class="text" onclick="setFileFunction('text', 'htm')">htm</p>
                     <p class="text" onclick="setFileFunction('text', 'doc')">doc</p>
                     <p class="text" onclick="setFileFunction('text', 'docx')">docx</p>
-
                     <p class="ppt" onclick="setFileFunction('ppt', 'pptx')">pptx</p>
                     <p class="ppt" onclick="setFileFunction('ppt', 'ppt')">ppt</p>
                     <p class="ppt" onclick="setFileFunction('ppt', 'odp')">odp</p>
-
                     <p class="exel" onclick="setFileFunction('exel', 'xls')">xls</p>
                     <p class="exel" onclick="setFileFunction('exel', 'xlsx')">xlsx</p>
                     <p class="exel" onclick="setFileFunction('exel', 'ods')">ods</p>
                 </div>
             </div>
-             
-            <!-- Hochladen-Button -->
-            <input type="submit" value="Hochladen" id="submitButton" onclick="sendData()">
-        </form>
+            
+            <div class="button-wrapper">
+                <input class="buttons" type="submit" value="Hochladen" id="submitButton" onclick="sendData()">
+            </div>
+        </div>
     </div>
-
-    <!-- Statusanzeige -->
     <p id="upload-status">
-        <!-- Der Status wird hier angezeigt -->
         {% if status %}
             {{ status }}
         {% endif %}
     </p>
-
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

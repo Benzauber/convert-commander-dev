@@ -16,7 +16,7 @@ def download_file(filepath, global_filetest):
     filename = os.path.splitext(os.path.basename(filepath))[0]
     filethepath = f'/home/ben/convert-commander/test/pdfs/{filename}.{global_filetest}'
     try:
-        print(filethepath)
+        print(f"Bereit zum Download: {filethepath}")
         return send_file(filethepath, as_attachment=True)
     except Exception as e:
         return str(e)
@@ -36,13 +36,14 @@ def index():
         if file and global_filetest is not None:
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
             file.save(filepath)
+            # Aufruf des externen Moduls mit dem Dateipfad und dem Dateityp
             text.start(filepath, global_filetest)
 
-            # Hier umleiten zur Download-Route
+            # Umleitung zur Download-Route
             return redirect(url_for('download', filename=file.filename))
         
         elif file:
-            return redirect(url_for('index', status='Datei hochgeladen, aber filetest nicht verfügbar'))
+            return redirect(url_for('index', status='Datei hochgeladen, aber Dateityp nicht ausgewählt'))
 
     return render_template('index.html', status=request.args.get('status'))
 
@@ -61,4 +62,4 @@ def empfange_daten():
     return jsonify({"status": "erfolgreich empfangen", "message": "Bitte laden Sie jetzt eine Datei hoch"})
 
 if __name__ == '__main__':
-    app.run(debug=True, host= "192.168.1.94")
+    app.run(debug=True, host="192.168.1.94")

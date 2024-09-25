@@ -17,8 +17,8 @@ function filterFunction(dropdownClass) {
 
     // Dann nur die Elemente filtern, die der Suchabfrage entsprechen
     pElements.forEach(function (item) {
-        const textValue = item.textContent || item.innerText;
-        if (textValue.toLowerCase().indexOf(filter) == -1) {
+        const textValue = item.textContent.toLowerCase(); // Verwenden nur von textContent für bessere Kompatibilität
+        if (textValue.indexOf(filter) == -1) {
             item.style.display = "none";
         } else {
             item.style.display = "flex";
@@ -47,7 +47,6 @@ function setFileFunction(name, filename) {
   }
 
   return [value, valuename];
-
 }
 
 document.getElementById('fileInput').addEventListener('change', function(event) {
@@ -93,17 +92,14 @@ function meineFunktion(name) {
   }
 }
 
-function sendData(){
+function sendData() {
   document.getElementById("submitButton").value = "Wird gesendet...";
   fetch('/empfange_daten', {
- 
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
-        
     },
     body: JSON.stringify({ daten: valuename })
-
   })
   .then(response => response.json())
   .then(data => console.log('Erfolg:', data))
@@ -111,4 +107,13 @@ function sendData(){
   console.log(value);
 }
 
-
+function updateFileName() {
+  const fileInput = document.getElementById('fileInput');
+  const fileLabel = document.getElementById('fileLabel');
+  
+  if (fileInput.files.length > 0) {
+      fileLabel.textContent = fileInput.files[0].name;
+  } else {
+      fileLabel.textContent = 'Datei auswählen';
+  }
+}
