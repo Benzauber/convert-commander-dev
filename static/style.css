@@ -55,7 +55,6 @@ h1 {
   top: 100%;
   left: 0;
   background-color: #f1f1f1;
-
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
   flex-wrap: wrap;
@@ -75,20 +74,17 @@ h1 {
 
 .dropdown2:hover .dropdown-content2 {
   display: flex;
-
 }
-#file{
+
+#file {
   border-radius: 10px;
-
   transition: all 0.3s;
-  
 }
+
 #file:hover {
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
 }
-
-
 
 #fileInput {
   display: none;
@@ -99,4 +95,52 @@ h1 {
   padding: 8px;
   box-sizing: border-box;
   margin-bottom: 8px;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 600px) {
+  .main {
+    padding: 20px 10px;
+  }
+
+  .button-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .button-wrapper {
+    width: 95%;
+    max-width: none;
+  }
+
+  .buttons {
+    width: 95%;
+    min-width: unset;
+    font-size: 16px;
+    padding: 15px 10px;
+  }
+
+  .dropdown-content2 {
+    width: 100%;
+  }
+  #submitButton{
+    width: 100%;
+  }
+
+  h1 {
+    font-size: 24px;
+    text-align: center;
+  }
+}
+@media (max-width: 415px) {
+  #submitButton{
+    width: 101%;
+  }
+}
+@media (max-width: 364px) {
+  #submitButton{
+    width: 102%;
+  }
 }

@@ -93,18 +93,28 @@ function meineFunktion(name) {
 }
 
 function sendData() {
-  document.getElementById("submitButton").value = "Wird gesendet...";
   fetch('/empfange_daten', {
     method: 'POST',
     headers: {
-        'Content-Type': 'application/json',
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({ daten: valuename })
   })
-  .then(response => response.json())
-  .then(data => console.log('Erfolg:', data))
-  .catch((error) => console.error('Fehler:', error));
-  console.log(value);
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Netzwerkantwort war nicht ok');
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log('Erfolg:', data);
+    // Hier können Sie das Formular manuell absenden
+    document.querySelector('form').submit();
+  })
+  .catch((error) => {
+    console.error('Fehler:', error);
+    // Hier können Sie dem Benutzer eine Fehlermeldung anzeigen
+  });
 }
 
 function updateFileName() {
