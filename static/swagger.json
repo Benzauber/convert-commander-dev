@@ -1,0 +1,54 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "File Converter API",
+      "version": "1.0"
+    },
+    "paths": {
+      "/upload": {
+        "post": {
+          "tags": ["File Conversion"],
+          "summary": "Lade eine Datei hoch und konvertiere sie",
+          "consumes": ["multipart/form-data"],
+          "parameters": [
+            {
+              "in": "formData",
+              "name": "file",
+              "type": "file",
+              "required": true,
+              "description": "Die hochzuladende Datei"
+            },
+            {
+              "in": "formData",
+              "name": "format",
+              "type": "string",
+              "required": true,
+              "description": "Das Zielformat für die Konvertierung"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Erfolgreich konvertierte Datei"
+            },
+            "400": {
+              "description": "Ungültige Anfrage"
+            },
+            "500": {
+              "description": "Serverfehler"
+            }
+          }
+        }
+      },
+      "/clear": {
+        "post": {
+          "tags": ["Maintenance"],
+          "summary": "Lösche alle Dateien in den Upload- und Konvertierungsordnern",
+          "responses": {
+            "200": {
+              "description": "Ordner erfolgreich geleert"
+            }
+          }
+        }
+      }
+    }
+  }
