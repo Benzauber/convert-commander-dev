@@ -16,15 +16,12 @@ if [ -n "$token" ]; then
     # Secret encryption key (Can be any secret phrase)
     encryption_key=$ENCRYPTION_KEY
 
-    # Encrypt the API token using OpenSSL with PBKDF2 and store it in a variable
-    encrypted_token=$(echo -n "$token" | openssl enc -aes-256-cbc -pbkdf2 -salt -k "$encryption_key" | base64)
-    
-    echo "Encrypted API Token:"
-    echo "$encrypted_token"
-    
-    # Optionally, you can store the encrypted token in a file (this is optional)
-    echo "$encrypted_token" > api_token.enc
-    echo "Encrypted API Token saved to api_token.enc (optional)"
+    # Encrypt the API token using OpenSSL with PBKDF2 (directly using pipe, no temp file needed)
+    encrypted_token=$(echo -n "$token" | openssl enc -aes-256-cbc -pbkdf2 -salt -k "$encryption_key")
+
+    # Append the encrypted token to a file (if the file doesn't exist, it will be created)
+    echo "$encrypted_token" >> encrypted_tokens_list.txt
+    echo "Encrypted API Token appended to encrypted_tokens_list.txt"
 else
     echo "Failed to generate API token. Server response:"
     echo "$response"
