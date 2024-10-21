@@ -116,6 +116,23 @@ function sendData() {
     // Hier können Sie dem Benutzer eine Fehlermeldung anzeigen
   });
 }
+document.querySelectorAll('.dropdown2').forEach(dropdown => {
+  dropdown.addEventListener('mouseenter', () => {
+    const dropdownContent = dropdown.querySelector('.dropdown-content2');
+    dropdownContent.style.maxHeight = '300px';
+    dropdownContent.style.opacity = '1';
+    // Breite wird jetzt durch CSS-Transition geregelt
+  });
+
+  dropdown.addEventListener('mouseleave', () => {
+    const dropdownContent = dropdown.querySelector('.dropdown-content2');
+    dropdownContent.style.maxHeight = '0';
+    dropdownContent.style.opacity = '0';
+    // Breite wird jetzt durch CSS-Transition geregelt
+  });
+});
+
+
 
 function updateFileName() {
   const fileInput = document.getElementById('fileInput');
