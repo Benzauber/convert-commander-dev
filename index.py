@@ -93,5 +93,9 @@ def empfange_daten():
 
     return jsonify({"status": "erfolgreich empfangen", "message": "Bitte laden Sie jetzt eine Datei hoch"})
 
+@app.route('/docs')
+def doc():
+    return render_template("docs.html")
+
 if __name__ == '__main__':
     app.run(debug=True, host="192.168.1.94")
