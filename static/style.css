@@ -202,6 +202,10 @@ h1 {
 }
 /* Mobile-specific styles */
 @media (max-width: 600px) {
+  body{
+    width: 95%;
+    margin: 0 auto; 
+}
   .main {
     padding: 20px 10px;
   }

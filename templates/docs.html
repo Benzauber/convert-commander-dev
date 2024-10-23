@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Docs</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
 
 <body>
@@ -171,6 +172,17 @@
 
     .exp p {
         font-size: 20px;
+    }
+    @media (max-width: 600px) {
+        body{
+            width: 95%;
+            margin: 0 auto; 
+        }
+        .exp {
+            margin-left: 5%;
+            margin-left: 5%;
+        }
+
     }
 </style>
 
