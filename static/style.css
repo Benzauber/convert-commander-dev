@@ -2,6 +2,8 @@ body {
   background-color: #1B1B1B;
   color: white;
   font-family: Arial, sans-serif;
+  width: 80%;
+  margin: 0 auto;
 }
 
 .main {
@@ -13,6 +15,40 @@ body {
 
 h1 {
   margin-bottom: 30px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo,
+.link {
+  padding: 10px;
+  margin: 5px;
+  font-size: 20px;
+  /* Einheitliche Schriftgröße */
+}
+
+.logo {
+  text-align: left;
+  color: #94EBEB;
+}
+
+.link {
+  text-align: right;
+  color: white;
+}
+
+.link a {
+  text-decoration: none;
+  color: white;
+}
+
+.link a:hover {
+  color: #a0a0a0;
+  transition: all 0.3s;
 }
 
 .button-container {
