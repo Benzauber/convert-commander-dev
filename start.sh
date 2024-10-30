@@ -1,81 +1,104 @@
 #!/bin/bash
 
-# Name des Python-Skripts
-PYTHON_SCRIPT="index.py"
-# PID-Datei zur Prozessverwaltung
-PID_FILE="/tmp/python_script.pid"
+# Pfad zu den Python-Skripten
+PYTHON_SCRIPT_WEB="index:app"  # Format: "dateiname:app_name"
+PYTHON_SCRIPT_API="api:app"  # Format: "dateiname:app_name"
 
-# Funktion zum Überprüfen ob das Skript läuft
+# PID-Dateien für die Gunicorn-Prozesse
+PID_FILE_WEB="/tmp/gunicorn_web.pid"
+PID_FILE_API="/tmp/gunicorn_api.pid"
+
+# Gunicorn-Befehl zum Starten des Prozesses, inklusive Ports
+GUNICORN_CMD_WEB="gunicorn --bind 0.0.0.0:5000 --daemon --pid"
+GUNICORN_CMD_API="gunicorn --bind 0.0.0.0:5001 --daemon --pid"
+
+# Funktion zum Überprüfen, ob ein Prozess läuft
 check_status() {
+    local PID_FILE=$1
+    local SERVICE_NAME=$2
+
     if [ -f "$PID_FILE" ]; then
         PID=$(cat "$PID_FILE")
         if ps -p "$PID" > /dev/null; then
-            echo "Python-Skript läuft (PID: $PID)"
-            return 0
+            echo "$SERVICE_NAME läuft (PID: $PID)"
         else
+            echo "$SERVICE_NAME läuft nicht, PID-Datei gefunden, aber Prozess nicht aktiv"
             rm "$PID_FILE"
-            echo "Python-Skript läuft nicht"
-            return 1
         fi
     else
-        echo "Python-Skript läuft nicht"
-        return 1
+        echo "$SERVICE_NAME läuft nicht"
     fi
 }
 
-# Starten des Skripts
-start() {
-    if check_status > /dev/null; then
-        echo "Python-Skript läuft bereits"
+# Starten des Gunicorn-Prozesses
+start_service() {
+    local SCRIPT_NAME=$1
+    local PID_FILE=$2
+    local GUNICORN_CMD=$3
+
+    if [ -f "$PID_FILE" ] && ps -p "$(cat $PID_FILE)" > /dev/null; then
+        echo "$SCRIPT_NAME läuft bereits"
     else
-        python3 "$PYTHON_SCRIPT" &
-        echo $! > "$PID_FILE"
-        echo "Python-Skript wurde gestartet"
+        $GUNICORN_CMD "$PID_FILE" "$SCRIPT_NAME" &
+        echo "$SCRIPT_NAME wurde gestartet"
     fi
 }
 
-# Stoppen des Skripts
-stop() {
+# Stoppen des Gunicorn-Prozesses
+stop_service() {
+    local PID_FILE=$1
+    local SERVICE_NAME=$2
+
     if [ -f "$PID_FILE" ]; then
         PID=$(cat "$PID_FILE")
         kill "$PID" 2>/dev/null
         rm "$PID_FILE"
-        echo "Python-Skript wurde gestoppt"
+        echo "$SERVICE_NAME wurde gestoppt"
     else
-        echo "Python-Skript läuft nicht"
+        echo "$SERVICE_NAME läuft nicht"
     fi
 }
 
-# Hauptlogik
+# Hauptlogik zur Auswahl des Dienstes und der Aktion
 case "$1" in
-api)
-    start)
-        start
+    web)
+        case "$2" in
+            start)
+                start_service "$PYTHON_SCRIPT_WEB" "$PID_FILE_WEB" "$GUNICORN_CMD_WEB"
+                ;;
+            stop)
+                stop_service "$PID_FILE_WEB" "Web-Dienst"
+                ;;
+            status)
+                check_status "$PID_FILE_WEB" "Web-Dienst"
+                ;;
+            *)
+                echo "Verwendung: $0 {web|api} {start|stop|status}"
+                exit 1
+                ;;
+        esac
         ;;
-    stop)
-        stop
-        ;;
-    status)
-        check_status
+    api)
+        case "$2" in
+            start)
+                start_service "$PYTHON_SCRIPT_API" "$PID_FILE_API" "$GUNICORN_CMD_API"
+                ;;
+            stop)
+                stop_service "$PID_FILE_API" "API-Dienst"
+                ;;
+            status)
+                check_status "$PID_FILE_API" "API-Dienst"
+                ;;
+            *)
+                echo "Verwendung: $0 {web|api} {start|stop|status}"
+                exit 1
+                ;;
+        esac
         ;;
     *)
-        echo "Verwendung: $0 {start|stop|status}"
+        echo "Verwendung: $0 {web|api} {start|stop|status}"
         exit 1
         ;;
-web)   
-    start)
-        start
-        ;;
-    stop)
-        stop
-        ;;
-    status)
-        check_status
-        ;;
-    *)
-        echo "Verwendung: $0 {start|stop|status}"
-        exit 1
-        ;;     
 esac
 
 exit 0

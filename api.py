@@ -200,4 +200,4 @@ def clear_folders():
     return jsonify({'message': 'Folders cleared'}), 200
 
 if __name__ == '__main__':
-    app.run(debug=True, host="0.0.0.0", port=5001)
+    app.run(debug=True, host="0.0.0.0", port="5001")
