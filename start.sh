@@ -59,6 +59,16 @@ stop_service() {
     fi
 }
 
+# Funktion zum Ausführen eines Bash-Skripts
+run_bash_script() {
+    local SCRIPT_NAME=$1
+    if [ -x "$SCRIPT_NAME" ]; then
+        ./"$SCRIPT_NAME"
+    else
+        echo "Das Skript '$SCRIPT_NAME' ist nicht ausführbar oder nicht gefunden."
+    fi
+}
+
 # Hauptlogik zur Auswahl des Dienstes und der Aktion
 case "$1" in
     web)
@@ -89,14 +99,17 @@ case "$1" in
             status)
                 check_status "$PID_FILE_API" "API-Dienst"
                 ;;
+            token)
+                run_bash_script "tokenapi.sh" 
+                ;;
             *)
-                echo "Verwendung: $0 {web|api} {start|stop|status}"
+                echo "Verwendung: $0 {web|api} {start|stop|status|token}"
                 exit 1
                 ;;
         esac
         ;;
     *)
-        echo "Verwendung: $0 {web|api} {start|stop|status}"
+        echo "Verwendung: $0 {web|api} {start|stop|status|token}"
         exit 1
         ;;
 esac
