@@ -3,6 +3,7 @@ import os
 import text
 from flask_cors import CORS
 import shutil
+from threading import Timer
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
@@ -15,6 +16,8 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 # Globale Variable zur Speicherung von filetest
 global_filetest = None
+folder_path_1 = '/home/ben/convert-commander/uploads'
+folder_path_2 = '/home/ben/convert-commander/convert'
 
 def delete_files_in_folder(folder_path):
     # Überprüfen, ob der Ordner existiert
@@ -42,18 +45,15 @@ def download_file(filepath, global_filetest):
     except Exception as e:
         return str(e)
 
+def delete_files_after_delay():
+    delete_files_in_folder(folder_path_1)
+    delete_files_in_folder(folder_path_2)
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     global global_filetest
-    # Bei jedem GET-Request wird global_filetest zurückgesetzt
-    if request.method == 'GET':
-        global_filetest = None
-        folder_path_1 = '/home/ben/convert-commander/uploads'
-        folder_path_2 = '/home/ben/convert-commander/convert'
 
-        delete_files_in_folder(folder_path_1)
-        delete_files_in_folder(folder_path_2)
-    
+
     if request.method == 'POST':
         if 'file' not in request.files:
             return redirect(url_for('index', status='Keine Datei ausgewählt'))
@@ -66,14 +66,24 @@ def index():
         if file and global_filetest is not None:
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
             file.save(filepath)
+    
             # Aufruf des externen Moduls mit dem Dateipfad und dem Dateityp
             text.start(filepath, global_filetest)
-
+    
             # Umleitung zur Download-Route
-            return redirect(url_for('download', filename=file.filename))
+            response = redirect(url_for('download', filename=file.filename))
+    
+            Timer(5, delete_files_after_delay).start()
+    
+            return response
+
         
         elif file:
             return redirect(url_for('index', status='Datei hochgeladen, aber Dateityp nicht ausgewählt'))
+
+
+
+
 
     return render_template('index.html', status=request.args.get('status'))
 
