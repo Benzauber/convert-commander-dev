@@ -8,44 +8,65 @@
       "/upload": {
         "post": {
           "tags": ["File Conversion"],
-          "summary": "Lade eine Datei hoch und konvertiere sie",
-          "consumes": ["multipart/form-data"],
+          "summary": "Upload a file and convert it to the specified format",
           "parameters": [
             {
-              "in": "formData",
-              "name": "file",
-              "type": "file",
+              "name": "X-API-Token",
+              "in": "header",
               "required": true,
-              "description": "Die hochzuladende Datei"
+              "type": "string",
+              "description": "API token for authentication"
             },
             {
+              "name": "file",
               "in": "formData",
-              "name": "format",
-              "type": "string",
               "required": true,
-              "description": "Das Zielformat für die Konvertierung"
+              "type": "file",
+              "description": "The file to upload"
+            },
+            {
+              "name": "format",
+              "in": "formData",
+              "required": true,
+              "type": "string",
+              "description": "The target format for conversion"
             }
           ],
           "responses": {
             "200": {
-              "description": "Erfolgreich konvertierte Datei"
+              "description": "Successfully converted file"
             },
             "400": {
-              "description": "Ungültige Anfrage"
+              "description": "Invalid request"
+            },
+            "401": {
+              "description": "Unauthorized"
             },
             "500": {
-              "description": "Serverfehler"
+              "description": "Server error"
             }
           }
         }
       },
       "/clear": {
-        "post": {
-          "tags": ["Maintenance"],
-          "summary": "Lösche alle Dateien in den Upload- und Konvertierungsordnern",
-          "responses": {
-            "200": {
-              "description": "Ordner erfolgreich geleert"
+          "post": {
+            "tags": ["Maintenance"],
+            "summary": "Clear all files in the upload and convert folders",
+            "parameters": [
+                {
+                    "name": "X-API-Token",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "description": "API token for authentication"
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "Folders successfully cleared"
+                },
+                "401": {
+                    "description": "Unauthorized"
             }
           }
         }

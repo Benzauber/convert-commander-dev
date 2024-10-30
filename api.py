@@ -1,14 +1,14 @@
 from flask import Flask, request, jsonify, send_file, make_response
 from flask_swagger_ui import get_swaggerui_blueprint
 import os
-import text  # Your conversion script
+import text  # Dein Konvertierungsskript
 from flask_cors import CORS
 import shutil
 import logging
 from werkzeug.utils import secure_filename
 import mimetypes
 import secrets
-import hashlib  # Added for hashing
+import hashlib  # Hinzugefügt für Hashing
 from functools import wraps
 
 app = Flask(__name__)
@@ -19,14 +19,14 @@ CONVERT_FOLDER = '/home/ben/convert-commander/convert'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['CONVERT_FOLDER'] = CONVERT_FOLDER
 
-# Ensure the folders exist
+# Stelle sicher, dass die Ordner existieren
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(CONVERT_FOLDER, exist_ok=True)
 
-# Configure logging
+# Konfiguriere das Logging
 logging.basicConfig(level=logging.DEBUG)
 
-# Swagger UI Configuration
+# Swagger UI Konfiguration
 SWAGGER_URL = '/docs'
 API_URL = '/static/swagger.json'
 
@@ -40,14 +40,14 @@ swaggerui_blueprint = get_swaggerui_blueprint(
 
 app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
 
-# API Token storage (in-memory for this example, hashed tokens)
+# API Token Speicherung (im Speicher für dieses Beispiel, gehashte Tokens)
 hashed_tokens = set()
 
 def generate_token():
     return secrets.token_urlsafe(32)
 
 def hash_token(token):
-    """Generate a SHA-256 hash of the token."""
+    """Generiere einen SHA-256 Hash des Tokens."""
     return hashlib.sha256(token.encode()).hexdigest()
 
 def token_required(f):
@@ -56,7 +56,7 @@ def token_required(f):
         token = request.headers.get('X-API-Token')
         if not token:
             return jsonify({'error': 'API token is missing'}), 401
-        hashed_token = hash_token(token)  # Hash the provided token
+        hashed_token = hash_token(token)  # Hash des bereitgestellten Tokens
         if hashed_token not in hashed_tokens:
             return jsonify({'error': 'Invalid API token'}), 401
         return f(*args, **kwargs)
@@ -65,7 +65,7 @@ def token_required(f):
 @app.route('/generate_token', methods=['POST'])
 def create_token():
     """
-    Generate a new API token
+    Generiere ein neues API-Token
     ---
     tags:
       - Authentication
@@ -75,8 +75,8 @@ def create_token():
     """
     token = generate_token()
     hashed_token = hash_token(token)
-    hashed_tokens.add(hashed_token)  # Store the hashed token
-    return jsonify({'token': token}), 200  # Return the plain token
+    hashed_tokens.add(hashed_token)  # Speichere das gehashte Token
+    return jsonify({'token': token}), 200  # Gebe das einfache Token zurück
 
 def delete_files_in_folder(folder_path):
     if os.path.exists(folder_path):
@@ -96,7 +96,7 @@ def delete_files_in_folder(folder_path):
 @token_required
 def upload_file():
     """
-    Upload a file and convert it to the specified format
+    Lade eine Datei hoch und konvertiere sie in das angegebene Format
     ---
     tags:
       - File Conversion
@@ -179,7 +179,7 @@ def upload_file():
 @token_required
 def clear_folders():
     """
-    Clear all files in the upload and conversion folders
+    Leere alle Dateien in den Upload- und Konvertierungsordnern
     ---
     tags:
       - Maintenance
@@ -198,6 +198,8 @@ def clear_folders():
     delete_files_in_folder(app.config['UPLOAD_FOLDER'])
     delete_files_in_folder(app.config['CONVERT_FOLDER'])
     return jsonify({'message': 'Folders cleared'}), 200
+
+
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port="5001")
