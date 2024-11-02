@@ -15,7 +15,7 @@ echo "Starting Convert-Commander installation..."
 # Funktion zur Fortschrittsanzeige
 progress_bar() {
     local progress=$1
-    local total=8
+    local total=11
     local percent=$(( progress * 100 / total ))
     local completed=$(( percent / 5 ))
     local remaining=$(( 20 - completed ))
@@ -44,43 +44,66 @@ current_step=0
 
 # Python installieren
 echo "Installing Python..."
+sudo apt-get install python3.6 -y
 ((current_step++))
 progress_bar $current_step
 
 # pip installieren
 echo "Installing pip..."
+sudo apt install python3-pip -y
 ((current_step++))
 progress_bar $current_step
 
 # Virtuelle Umgebung einrichten
 echo "Setting up virtual environment..."
+python3 -m env venv
 ((current_step++))
 progress_bar $current_step
 
 # Flask installieren
 echo "Installing Flask..."
+pip install flask -y
 ((current_step++))
 progress_bar $current_step
 
 # API-Flask installieren
 echo "Installing API-Flask..."
+pip install apiflask -y
 ((current_step++))
 progress_bar $current_step
 
 # Swagger UI installieren
-echo "Installing Swagger UI..."
-((current_step++))
-progress_bar $current_step
-
-# PyOO installieren
-echo "Installing pyoo..."
+pip install flask-swagger-ui -y
 ((current_step++))
 progress_bar $current_step
 
 # LibreOffice installieren
 echo "Installing LibreOffice..."
+sudo apt-get install libreoffice -y
 ((current_step++))
 progress_bar $current_step
+
+# PyOO installieren
+echo "Installing pyoo..."
+pip install pyoo -y
+((current_step++))
+progress_bar $current_step
+
+# gunicorn installieren
+echo "Installing gunicorn..."
+pip install gunicorn
+((current_step++))
+progress_bar $current_step
+
+# Ordner erstellen
+echo "Create folder"
+mkdir -p ./convert
+mkdir -p ./uploads
+
+# Start Script erstellen
+echo "Start script"
+alias ccommander= './start.sh'
+
 
 # Fertigstellung anzeigen
 echo -e "\nConvert-Commander installation completed successfully!"
