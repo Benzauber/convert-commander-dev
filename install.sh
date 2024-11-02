@@ -97,6 +97,13 @@ pip install gunicorn
 ((current_step++))
 progress_bar $current_step
 
+# jp installieren
+echo "Installing jp..."
+sudo apt-get install jq
+((current_step++))
+progress_bar $current_step
+
+
 # Ordner erstellen
 echo "Creating folders..."
 mkdir -p ./convert ./uploads
