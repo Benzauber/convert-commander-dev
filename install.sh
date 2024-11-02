@@ -33,30 +33,30 @@ progress_bar() {
     # Zeige den Fortschrittsbalken an
     echo -ne "$bar\r"
     sleep 1
-    if [ "$current_step" -lt "$total" ]; then
+    if [ "$progress" -lt "$total" ]; then
         tput el
     fi
-
 }
 
-total_steps=1
+total_steps=11
 current_step=0
 
 # Python installieren
 echo "Installing Python..."
-sudo apt-get install python3.6
+sudo apt-get install -y python3.6
 ((current_step++))
 progress_bar $current_step
 
 # pip installieren
 echo "Installing pip..."
-sudo apt install python3-pip
+sudo apt install -y python3-pip
 ((current_step++))
 progress_bar $current_step
 
 # Virtuelle Umgebung einrichten
 echo "Setting up virtual environment..."
-python3 -m env venv
+python3 -m venv venv
+source venv/bin/activate
 ((current_step++))
 progress_bar $current_step
 
@@ -79,7 +79,7 @@ progress_bar $current_step
 
 # LibreOffice installieren
 echo "Installing LibreOffice..."
-sudo apt-get install libreoffice
+sudo apt-get install -y libreoffice
 ((current_step++))
 progress_bar $current_step
 
@@ -96,14 +96,17 @@ pip install gunicorn
 progress_bar $current_step
 
 # Ordner erstellen
-echo "Create folder"
-mkdir -p ./convert
-mkdir -p ./uploads
+echo "Creating folders..."
+mkdir -p ./convert ./uploads
+((current_step++))
+progress_bar $current_step
 
-# Start Script erstellen
-echo "Start script"
-alias ccommander= './start.sh'
-
+# Start-Skript alias erstellen
+echo "Creating alias for Convert-Commander..."
+echo "alias ccommander='./start.sh'" >> ~/.bash_aliases
+source ~/.bash_aliases
+((current_step++))
+progress_bar $current_step
 
 # Fertigstellung anzeigen
 echo -e "\nConvert-Commander installation completed successfully!"
