@@ -32,7 +32,7 @@ def start(input_file, output_extension):
     # Dynamischer Zielpfad für das konvertierte Dokument
     input_ext = os.path.splitext(input_file)[1].lstrip('.')
     file_name = os.path.basename(input_file).replace(f'.{input_ext}', '')
-    output_file = os.path.join('./convert-commander/convert', f'{file_name}.{output_extension}')
+    output_file = os.path.join('convert-commander/convert', f'{file_name}.{output_extension}')
 
     # Debug-Ausgabe für das Arbeitsverzeichnis
     print(f"Arbeitsverzeichnis: {os.getcwd()}")

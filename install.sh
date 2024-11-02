@@ -69,6 +69,8 @@ progress_bar $current_step
 # API-Flask installieren
 echo "Installing API-Flask..."
 pip install apiflask 
+pip install flask-cors
+
 ((current_step++))
 progress_bar $current_step
 
