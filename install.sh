@@ -44,13 +44,13 @@ current_step=0
 
 # Python installieren
 echo "Installing Python..."
-sudo apt-get install python3.6 -y
+sudo apt-get install python3.6
 ((current_step++))
 progress_bar $current_step
 
 # pip installieren
 echo "Installing pip..."
-sudo apt install python3-pip -y
+sudo apt install python3-pip
 ((current_step++))
 progress_bar $current_step
 
@@ -62,30 +62,30 @@ progress_bar $current_step
 
 # Flask installieren
 echo "Installing Flask..."
-pip install flask -y
+pip install flask
 ((current_step++))
 progress_bar $current_step
 
 # API-Flask installieren
 echo "Installing API-Flask..."
-pip install apiflask -y
+pip install apiflask 
 ((current_step++))
 progress_bar $current_step
 
 # Swagger UI installieren
-pip install flask-swagger-ui -y
+pip install flask-swagger-ui 
 ((current_step++))
 progress_bar $current_step
 
 # LibreOffice installieren
 echo "Installing LibreOffice..."
-sudo apt-get install libreoffice -y
+sudo apt-get install libreoffice
 ((current_step++))
 progress_bar $current_step
 
 # PyOO installieren
 echo "Installing pyoo..."
-pip install pyoo -y
+pip install pyoo 
 ((current_step++))
 progress_bar $current_step
 
