@@ -1,16 +1,19 @@
 #!/bin/bash
 
+# Virtuelle Umgebung aktivieren
+source "$(dirname "$0")/venv/bin/activate"
+
 # Pfad zu den Python-Skripten
 PYTHON_SCRIPT_WEB="index:app"  # Format: "dateiname:app_name"
-PYTHON_SCRIPT_API="api:app"  # Format: "dateiname:app_name"
+PYTHON_SCRIPT_API="api:app"    # Format: "dateiname:app_name"
 
 # PID-Dateien für die Gunicorn-Prozesse
 PID_FILE_WEB="/tmp/gunicorn_web.pid"
 PID_FILE_API="/tmp/gunicorn_api.pid"
 
-# Gunicorn-Befehl zum Starten des Prozesses, inklusive Ports
-GUNICORN_CMD_WEB="gunicorn --bind 0.0.0.0:5000 --daemon --pid"
-GUNICORN_CMD_API="gunicorn --bind 0.0.0.0:5001 --daemon --pid"
+# Gunicorn-Befehl zum Starten des Prozesses, inklusive Ports und Fehlerprotokollierung
+GUNICORN_CMD_WEB="gunicorn --bind 0.0.0.0:5000 --daemon --pid $PID_FILE_WEB --error-logfile /tmp/gunicorn_web_error.log"
+GUNICORN_CMD_API="gunicorn --bind 0.0.0.0:5001 --daemon --pid $PID_FILE_API --error-logfile /tmp/gunicorn_api_error.log"
 
 # Funktion zum Überprüfen, ob ein Prozess läuft
 check_status() {
@@ -39,7 +42,7 @@ start_service() {
     if [ -f "$PID_FILE" ] && ps -p "$(cat $PID_FILE)" > /dev/null; then
         echo "$SCRIPT_NAME läuft bereits"
     else
-        $GUNICORN_CMD "$PID_FILE" "$SCRIPT_NAME" &
+        $GUNICORN_CMD "$SCRIPT_NAME" &
         echo "$SCRIPT_NAME wurde gestartet"
     fi
 }

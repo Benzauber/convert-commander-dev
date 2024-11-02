@@ -101,12 +101,14 @@ mkdir -p ./convert ./uploads
 ((current_step++))
 progress_bar $current_step
 
-# Start-Skript alias erstellen
+# Start-Skript ausführbar machen
+echo "Setting executable permission for start.sh..."
+chmod +x start.sh
+
+# Alias für Convert-Commander erstellen und laden
 echo "Creating alias for Convert-Commander..."
 echo "alias ccommander='./start.sh'" >> ~/.bash_aliases
 source ~/.bash_aliases
-((current_step++))
-progress_bar $current_step
 
 # Fertigstellung anzeigen
 echo -e "\nConvert-Commander installation completed successfully!"
