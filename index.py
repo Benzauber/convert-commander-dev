@@ -8,7 +8,7 @@ from threading import Timer
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
-UPLOAD_FOLDER = 'convert-commander/uploads'
+UPLOAD_FOLDER = 'uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # Stelle sicher, dass der Upload-Ordner existiert
@@ -16,8 +16,8 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 # Globale Variable zur Speicherung von filetest
 global_filetest = None
-folder_path_1 = 'convert-commander/uploads'
-folder_path_2 = 'convert-commander/convert'
+folder_path_1 = 'uploads'
+folder_path_2 = 'convert'
 
 def delete_files_in_folder(folder_path):
     # Überprüfen, ob der Ordner existiert
@@ -38,7 +38,7 @@ def delete_files_in_folder(folder_path):
 
 def download_file(filepath, global_filetest):    
     filename = os.path.splitext(os.path.basename(filepath))[0]
-    filethepath = f'convert-commander/convert/{filename}.{global_filetest}'
+    filethepath = f'convert/{filename}.{global_filetest}'
     try:
         print(f"Bereit zum Download: {filethepath}")
         return send_file(filethepath, as_attachment=True)

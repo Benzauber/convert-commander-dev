@@ -14,8 +14,8 @@ from functools import wraps
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
-UPLOAD_FOLDER = './convert-commander/uploads'
-CONVERT_FOLDER = './convert-commander/convert'
+UPLOAD_FOLDER = 'uploads'
+CONVERT_FOLDER = 'convert'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['CONVERT_FOLDER'] = CONVERT_FOLDER
 
