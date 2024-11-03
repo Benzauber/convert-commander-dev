@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Virtuelle Umgebung aktivieren
-source "$(dirname "$0")/env/bin/activate"
+source "$(dirname "$0")/venv/bin/activate"
 
 # Pfad zu den Python-Skripten
 PYTHON_SCRIPT_WEB="index:app"  # Format: "dateiname:app_name"
