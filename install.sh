@@ -40,7 +40,6 @@ progress_bar() {
 
 total_steps=11
 current_step=0
-INSTALL_DIR=$(pwd)
 
 # Python installieren
 echo "Installing Python..."
@@ -115,44 +114,53 @@ progress_bar $current_step
 echo "Setting executable permission for start.sh..."
 chmod +x start.sh
 
-# Alias in ~/.bash_aliases hinzufügen
+# Alias für Convert-Commander erstellen und laden
 echo "Creating alias for Convert-Commander..."
-echo "alias ccommander='$INSTALL_DIR/start.sh'" >> ~/.bash_aliases
-
-# ~/.bash_aliases laden, um den Alias sofort verfügbar zu machen
+echo "alias ccommander='./start.sh'" >> ~/.bash_aliases
 source ~/.bash_aliases
 
-# Bash-Completion für ccommander hinzufügen
-echo "Adding Bash completion for ccommander..."
-cat << 'EOF' >> ~/.bashrc
+# Bash-Completion für ccommander erstellen
+echo "Setting up bash completion for ccommander..."
+sudo mkdir -p /etc/bash_completion.d
 
-# Bash Completion für ccommander
+# Completion-Skript erstellen
+sudo tee /etc/bash_completion.d/ccommander-completion.bash > /dev/null << 'EOF'
 _ccommander_completion() {
-    local cur prev options
+    local cur prev opts sub_opts
     COMPREPLY=()
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD-1]}"
-    options="web api"  # Erste Ebene der Optionen
 
-    case "$prev" in
-        ccommander)
-            COMPREPLY=( $(compgen -W "$options" -- "$cur") )
+    # Hauptoptionen
+    opts="web api"
+
+    # Unteroptionen basierend auf dem ersten Argument
+    case "${prev}" in
+        "web")
+            sub_opts="start stop status"
+            COMPREPLY=( $(compgen -W "${sub_opts}" -- ${cur}) )
+            return 0
             ;;
-        web|api)
-            COMPREPLY=( $(compgen -W "start stop status token" -- "$cur") )
+        "api")
+            sub_opts="start stop status token"
+            COMPREPLY=( $(compgen -W "${sub_opts}" -- ${cur}) )
+            return 0
+            ;;
+        "ccommander")
+            COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+            return 0
             ;;
     esac
-    return 0
 }
 
-# Bash Completion für den Alias ccommander aktivieren
 complete -F _ccommander_completion ccommander
 EOF
 
-# ~/.bashrc neu laden, um die Änderungen sofort anzuwenden
-source ~/.bashrc
+# Completion-Skript ausführbar machen und aktivieren
+sudo chmod +x /etc/bash_completion.d/ccommander-completion.bash
+source /etc/bash_completion.d/ccommander-completion.bash
 
-echo "Alias 'ccommander' with auto-completion has been set up. You can now use 'ccommander' from any directory."
+echo "Installation completed. Bash completion for ccommander is now active."
 
 # Fertigstellung anzeigen
 echo -e "\nConvert-Commander installation completed successfully!"
