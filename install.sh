@@ -40,6 +40,7 @@ progress_bar() {
 
 total_steps=11
 current_step=0
+INSTALL_DIR=$(pwd)
 
 # Python installieren
 echo "Installing Python..."
@@ -114,10 +115,44 @@ progress_bar $current_step
 echo "Setting executable permission for start.sh..."
 chmod +x start.sh
 
-# Alias für Convert-Commander erstellen und laden
+# Alias in ~/.bash_aliases hinzufügen
 echo "Creating alias for Convert-Commander..."
-echo "alias ccommander='./start.sh'" >> ~/.bash_aliases
+echo "alias ccommander='$INSTALL_DIR/start.sh'" >> ~/.bash_aliases
+
+# ~/.bash_aliases laden, um den Alias sofort verfügbar zu machen
 source ~/.bash_aliases
+
+# Bash-Completion für ccommander hinzufügen
+echo "Adding Bash completion for ccommander..."
+cat << 'EOF' >> ~/.bashrc
+
+# Bash Completion für ccommander
+_ccommander_completion() {
+    local cur prev options
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+    options="web api"  # Erste Ebene der Optionen
+
+    case "$prev" in
+        ccommander)
+            COMPREPLY=( $(compgen -W "$options" -- "$cur") )
+            ;;
+        web|api)
+            COMPREPLY=( $(compgen -W "start stop status token" -- "$cur") )
+            ;;
+    esac
+    return 0
+}
+
+# Bash Completion für den Alias ccommander aktivieren
+complete -F _ccommander_completion ccommander
+EOF
+
+# ~/.bashrc neu laden, um die Änderungen sofort anzuwenden
+source ~/.bashrc
+
+echo "Alias 'ccommander' with auto-completion has been set up. You can now use 'ccommander' from any directory."
 
 # Fertigstellung anzeigen
 echo -e "\nConvert-Commander installation completed successfully!"
