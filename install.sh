@@ -110,7 +110,9 @@ mkdir -p ./convert ./uploads
 ((current_step++))
 progress_bar $current_step
 
-./create-alias.sh
+chmod +x create-alias.sh
+bash create-alias.sh
+source ~/.bashrc
 
 # Fertigstellung anzeigen
 echo -e "\nConvert-Commander installation completed successfully!"
