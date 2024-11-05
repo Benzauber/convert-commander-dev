@@ -91,7 +91,7 @@ h1 {
   position: relative;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
-  width: 100%;
+  width: 120%;
 }
 
 .dropdown-content2 {
@@ -104,24 +104,23 @@ h1 {
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.3);
   z-index: 1;
   width: 90%; /* Startwert für die Breite */
-  max-height: 0; /* Startwert für die Höhe */
-  overflow: hidden;
+  max-height: 400px; /* Erhöhte Höhe des Dropdowns */
+  overflow-y: auto; /* Vertikaler Scrollbalken, wenn nötig */
   opacity: 0; /* Startwert */
-  transition: max-height 0.5s ease-out, opacity 0.3s ease-out, top 0.2s ease-out; /* Nur Breite zur Transition hinzufügen */
+  transition: opacity 0.3s ease-out, top 0.2s ease-out;
   scrollbar-width: thin;
   scrollbar-color: #94EBEB #2A2A2A;
 }
+
 .dropdown2:hover .dropdown-content2 {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: flex-start;
   top: 100%; /* Breite, wenn sichtbar */
-  max-height: 300px; /* Höhe, wenn sichtbar */
   opacity: 1; /* Sichtbar */
   /* Padding bleibt konstant und wird nicht animiert */
   padding: 10px; /* Konstantes Padding */
- 
 }
 
 .dropbtn2 {
@@ -133,7 +132,6 @@ h1 {
   transform: translateY(0px);
   box-shadow: 0 4px 8px rgba(148, 235, 235, 0.2);
 }
-
 
 .dropdown-content2::-webkit-scrollbar {
   width: 8px;
@@ -166,7 +164,6 @@ h1 {
   background-color: #4A4A4A;
   transform: scale(1.05);
 }
-
 #file {
   border-radius: 10px;
   transition: all 0.3s;

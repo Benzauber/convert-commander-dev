@@ -1,7 +1,7 @@
 var elementsDown2 = document.getElementsByClassName("dropdown-content2");
 var value = "";
 var valuename = "";
-var textGuppe = [".docx", ".txt", ".odt", ".html", ".htm", ".doc"];
+var textGuppe = [".docx", ".txt", ".odt", ".html", ".htm", ".doc", ".epub"];
 var tabelleGruppe = [".xls", ".xlsx", ".ods"];
 var persentGruppe = [".ppt", ".pptx", ".odp"];
 
