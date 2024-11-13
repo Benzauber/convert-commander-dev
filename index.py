@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, redirect, url_for, jsonify, send_file
 import os
-import text
+import chnage
 from flask_cors import CORS
 import shutil
 from threading import Timer
@@ -67,10 +67,8 @@ def index():
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
             file.save(filepath)
     
-            # Aufruf des externen Moduls mit dem Dateipfad und dem Dateityp
-            text.start(filepath, global_filetest)
+            chnage.start(filepath, global_filetest)
     
-            # Umleitung zur Download-Route
             response = redirect(url_for('download', filename=file.filename))
     
             Timer(5, delete_files_after_delay).start()

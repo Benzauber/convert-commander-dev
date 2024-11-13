@@ -1,14 +1,14 @@
 from flask import Flask, request, jsonify, send_file, make_response
 from flask_swagger_ui import get_swaggerui_blueprint
 import os
-import text  # Dein Konvertierungsskript
+import chnage  # Dein Konvertierungsskript
 from flask_cors import CORS
 import shutil
 import logging
 from werkzeug.utils import secure_filename
 import mimetypes
 import secrets
-import hashlib  # Hinzugefügt für Hashing
+import hashlib
 from functools import wraps
 
 app = Flask(__name__)
@@ -19,14 +19,11 @@ CONVERT_FOLDER = 'convert'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['CONVERT_FOLDER'] = CONVERT_FOLDER
 
-# Stelle sicher, dass die Ordner existieren
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(CONVERT_FOLDER, exist_ok=True)
 
-# Konfiguriere das Logging
 logging.basicConfig(level=logging.DEBUG)
 
-# Swagger UI Konfiguration
 SWAGGER_URL = '/docs'
 API_URL = '/static/swagger.json'
 
@@ -40,7 +37,6 @@ swaggerui_blueprint = get_swaggerui_blueprint(
 
 app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
 
-# API Token Speicherung (im Speicher für dieses Beispiel, gehashte Tokens)
 hashed_tokens = set()
 
 def generate_token():
@@ -56,7 +52,7 @@ def token_required(f):
         token = request.headers.get('X-API-Token')
         if not token:
             return jsonify({'error': 'API token is missing'}), 401
-        hashed_token = hash_token(token)  # Hash des bereitgestellten Tokens
+        hashed_token = hash_token(token)
         if hashed_token not in hashed_tokens:
             return jsonify({'error': 'Invalid API token'}), 401
         return f(*args, **kwargs)
@@ -145,7 +141,7 @@ def upload_file():
 
     try:
         logging.debug(f"Starting conversion from {filepath} to {target_format}")
-        text.start(filepath, target_format)
+        chnage.start(filepath, target_format)
         
         converted_filename = os.path.splitext(filename)[0] + f'.{target_format}'
         converted_filepath = os.path.join(app.config['CONVERT_FOLDER'], converted_filename)

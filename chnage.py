@@ -41,6 +41,5 @@ def start(input_file, output_extension):
     convert_file(input_file, output_file)
     print(f"Die Datei '{input_file}' wurde erfolgreich in '{output_file}' konvertiert.")
 
-# Beispielaufruf
 
 

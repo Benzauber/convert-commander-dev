@@ -28,7 +28,6 @@ h1 {
   padding: 10px;
   margin: 5px;
   font-size: 20px;
-  /* Einheitliche Schriftgröße */
 }
 
 .logo {
@@ -95,7 +94,7 @@ h1 {
 }
 
 .dropdown-content2 {
-  padding: 10px; /* Konstantes Padding */
+  padding: 10px; 
   position: absolute;
   top: 115%;
   left: 0;
@@ -103,10 +102,10 @@ h1 {
   border-radius: 10px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.3);
   z-index: 1;
-  width: 90%; /* Startwert für die Breite */
-  max-height: 400px; /* Erhöhte Höhe des Dropdowns */
-  overflow-y: auto; /* Vertikaler Scrollbalken, wenn nötig */
-  opacity: 0; /* Startwert */
+  width: 90%; 
+  max-height: 400px;
+  overflow-y: auto; 
+  opacity: 0;
   transition: opacity 0.3s ease-out, top 0.2s ease-out;
   scrollbar-width: thin;
   scrollbar-color: #94EBEB #2A2A2A;
@@ -117,10 +116,9 @@ h1 {
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: flex-start;
-  top: 100%; /* Breite, wenn sichtbar */
-  opacity: 1; /* Sichtbar */
-  /* Padding bleibt konstant und wird nicht animiert */
-  padding: 10px; /* Konstantes Padding */
+  top: 100%; 
+  opacity: 1; 
+  padding: 10px; 
 }
 
 .dropbtn2 {
@@ -128,7 +126,7 @@ h1 {
 }
 
 .dropdown2:hover .dropbtn2 {
-  background-color: #7CD1D1; /* Farbe bei Hover */
+  background-color: #7CD1D1; 
   transform: translateY(0px);
   box-shadow: 0 4px 8px rgba(148, 235, 235, 0.2);
 }
@@ -197,7 +195,7 @@ h1 {
   }
   
 }
-/* Mobile-specific styles */
+
 @media (max-width: 600px) {
   body{
     width: 95%;
@@ -244,7 +242,7 @@ h1 {
     text-align: center;
   }
   .dropdown2:hover .dropdown-content2 {
-    overflow-y: auto; /* Ermöglicht das Scrollen, wenn der Inhalt zu groß ist */
+    overflow-y: auto; 
    
   }
   
