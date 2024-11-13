@@ -111,6 +111,7 @@ progress_bar $current_step
 
 chmod +x create-alias.sh
 bash create-alias.sh
+sleep 5
 source ~/.bashrc
 ((current_step++))
 progress_bar $current_step

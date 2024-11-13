@@ -12,8 +12,8 @@ PID_FILE_WEB="/tmp/gunicorn_web.pid"
 PID_FILE_API="/tmp/gunicorn_api.pid"
 
 # Gunicorn-Befehl zum Starten des Prozesses, inklusive Ports und Fehlerprotokollierung
-GUNICORN_CMD_WEB="gunicorn --bind 0.0.0.0:5000 --daemon --pid $PID_FILE_WEB --error-logfile /tmp/gunicorn_web_error.log"
-GUNICORN_CMD_API="gunicorn --bind 0.0.0.0:5001 --daemon --pid $PID_FILE_API --error-logfile /tmp/gunicorn_api_error.log"
+GUNICORN_CMD_WEB="gunicorn --bind 0.0.0.0:9595 --daemon --pid $PID_FILE_WEB --error-logfile /tmp/gunicorn_web_error.log"
+GUNICORN_CMD_API="gunicorn --bind 0.0.0.0:9596 --daemon --pid $PID_FILE_API --error-logfile /tmp/gunicorn_api_error.log"
 
 # Funktion zum Überprüfen, ob ein Prozess läuft
 check_status() {
