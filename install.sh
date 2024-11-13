@@ -15,7 +15,7 @@ echo "Starting Convert-Commander installation..."
 # Funktion zur Fortschrittsanzeige
 progress_bar() {
     local progress=$1
-    local total=11
+    local total=12
     local percent=$(( progress * 100 / total ))
     local completed=$(( percent / 5 ))
     local remaining=$(( 20 - completed ))
@@ -70,7 +70,6 @@ progress_bar $current_step
 echo "Installing API-Flask..."
 pip install apiflask 
 pip install flask-cors
-
 ((current_step++))
 progress_bar $current_step
 
@@ -113,6 +112,9 @@ progress_bar $current_step
 chmod +x create-alias.sh
 bash create-alias.sh
 source ~/.bashrc
+((current_step++))
+progress_bar $current_step
+
 
 # Fertigstellung anzeigen
 echo -e "\nConvert-Commander installation completed successfully!"
