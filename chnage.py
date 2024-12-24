@@ -3,43 +3,65 @@ import shutil
 import os
 
 def start(input_file, output_extension):
+    """
+    Converts a file to the desired format using Pandoc.
+    
+    Args:
+        input_file (str): Path to the input file
+        output_extension (str): Desired output format (e.g., 'pdf', 'docx', 'html')
+    """
     def convert_file(input_file, output_file):
         if not os.path.exists(input_file):
-            print(f"Die Eingabedatei '{input_file}' existiert nicht.")
-            return
+            print(f"Input file '{input_file}' does not exist.")
+            return False
 
         output_dir = os.path.dirname(output_file)
         if not os.path.exists(output_dir):
-            print(f"Der Ausgabeordner '{output_dir}' existiert nicht.")
-            return
+            try:
+                os.makedirs(output_dir)
+                print(f"Output directory '{output_dir}' has been created.")
+            except OSError as e:
+                print(f"Error creating output directory: {e}")
+                return False
 
-        # Der LibreOffice-Befehl zum Konvertieren der Datei
+        # Pandoc command for file conversion
         command = [
-            'libreoffice',
-            '--headless',
-            '--convert-to', output_extension,
-            '--outdir', output_dir,
-            input_file
+            'pandoc',
+            input_file,
+            '-o', output_file,
+            '--standalone'  # Creates a complete document
         ]
 
         try:
-            result = subprocess.run(command, check=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
-            print(f"Konvertierung erfolgreich abgeschlossen: {result.stdout.decode()}")
+            result = subprocess.run(
+                command,
+                check=True,
+                stderr=subprocess.PIPE,
+                stdout=subprocess.PIPE,
+                text=True  # Returns text instead of bytes
+            )
+            print("Conversion completed successfully.")
+            return True
         except subprocess.CalledProcessError as e:
-            print(f"Fehler beim Konvertieren: {e.stderr.decode()}")
-            print(f"Ausgabe: {e.stdout.decode()}")
+            print(f"Error during conversion: {e.stderr}")
+            print(f"Output: {e.stdout if hasattr(e, 'stdout') else 'No output available'}")
+            return False
+        except FileNotFoundError:
+            print("Pandoc is not installed or not available in PATH.")
+            print("Please install Pandoc: https://pandoc.org/installing.html")
+            return False
 
-    # Dynamischer Zielpfad für das konvertierte Dokument
+    # Dynamic target path for the converted document
     input_ext = os.path.splitext(input_file)[1].lstrip('.')
     file_name = os.path.basename(input_file).replace(f'.{input_ext}', '')
     output_file = os.path.join('convert', f'{file_name}.{output_extension}')
 
-    # Debug-Ausgabe für das Arbeitsverzeichnis
-    print(f"Arbeitsverzeichnis: {os.getcwd()}")
-    print(f"Ausgabeordner: {os.path.dirname(output_file)}")
+    # Debug output
+    print(f"Working directory: {os.getcwd()}")
+    print(f"Output directory: {os.path.dirname(output_file)}")
+    print(f"Converting '{input_file}' to '{output_file}'")
 
-    convert_file(input_file, output_file)
-    print(f"Die Datei '{input_file}' wurde erfolgreich in '{output_file}' konvertiert.")
-
-
-
+    if convert_file(input_file, output_file):
+        print(f"File was successfully converted: '{output_file}'")
+    else:
+        print("Conversion was not completed successfully.")

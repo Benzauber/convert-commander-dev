@@ -116,6 +116,8 @@ source ~/.bashrc
 ((current_step++))
 progress_bar $current_step
 
+chmod +x tokenapi.sh
+
 
 # Fertigstellung anzeigen
 echo -e "\nConvert-Commander installation completed successfully!"

@@ -1,9 +1,28 @@
 var elementsDown2 = document.getElementsByClassName("dropdown-content2");
 var value = "";
 var valuename = "";
-var textGuppe = [".docx", ".txt", ".odt", ".html", ".htm", ".doc", ".epub"];
-var tabelleGruppe = [".xls", ".xlsx", ".ods"];
-var persentGruppe = [".ppt", ".pptx", ".odp"];
+// var textGuppe = [".docx", ".txt", ".odt", ".html", ".htm", ".doc", ".epub"];
+// var tabelleGruppe = [".xls", ".xlsx", ".ods"];
+// var persentGruppe = [".ppt", ".pptx", ".odp"];
+var convertFile = [
+  ".md", ".rst", ".asciidoc", ".org", ".muse", ".textile", ".markua", ".txt2tags", ".djot",
+  ".html", ".xhtml", ".html5", ".chunked-html",
+  ".epub", ".fictionbook2",
+  ".texinfo", ".haddock", ".roff-man", ".roff-ms", ".mdoc-man",
+  ".latex", ".context",
+  ".docbook", ".jats", ".bits", ".tei", ".opendocument", ".opml",
+  ".bibtex", ".biblatex", ".csl-json", ".csl-yaml", ".ris", ".endnote",
+  ".docx", ".rtf", ".odt",
+  ".ipynb",
+  ".icml", ".typst",
+  ".mediawiki", ".dokuwiki", ".tikimediawiki", ".twiki", ".vimwiki", ".xwiki", ".zimwiki", ".jira-wiki", ".creole",
+  ".beamer", ".pptx", ".slidy", ".revealjs", ".slideous", ".s5", ".dzslides",
+  ".csv", ".tsv",
+  ".ansi-text"
+];
+
+
+
 
 function filterFunction(dropdownClass) {
     const input = document.querySelector(`.${dropdownClass} .suche`);
@@ -63,7 +82,7 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
   }
 });
 
-function meineFunktion(name) {
+// function meineFunktion(name) {
   var elementsText = document.getElementsByClassName("text");
   var elementsExel = document.getElementsByClassName("exel");
   var elementsPPT = document.getElementsByClassName("ppt");
@@ -90,7 +109,7 @@ function meineFunktion(name) {
       elementsExel[i].style.display = "none";
     }
   }
-}
+//}
 
 function sendData() {
   fetch('/empfange_daten', {
@@ -139,8 +158,17 @@ function updateFileName() {
   const fileLabel = document.getElementById('fileLabel');
   
   if (fileInput.files.length > 0) {
-      fileLabel.textContent = fileInput.files[0].name;
+    fileLabel.textContent = fileInput.files[0].name;
   } else {
-      fileLabel.textContent = 'Datei auswählen';
+    fileLabel.textContent = 'Datei auswählen';
   }
+  
+  if (convertFile.includes(fileLabel)) {
+    document.getElementById("error").innerHTML = '';
+
+  } else {
+    document.getElementById("error").innerHTML = 'Invalid file format. <a href="https://pandoc.org/">pandoc</a>';
+
+  }
+
 }

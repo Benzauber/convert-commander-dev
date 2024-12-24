@@ -18,6 +18,7 @@
     </div>
     <div class="main">
         <h1>Convert-Commander</h1>
+
         <div class="button-container">
             <div class="button-wrapper">
                 <form action="/" method="post" enctype="multipart/form-data">
@@ -29,20 +30,45 @@
                 <div class="buttons dropbtn2" onclick="event.preventDefault(); meineFunktion()" id="file">File Type</div>
                 <div class="dropdown-content2">
                     <input class="suche" type="text" onkeyup="filterFunction('dropdown-content2')" placeholder="Search...">
-                    <p class="text" onclick="setFileFunction('text', 'txt')">txt</p>
-                    <p class="text" onclick="setFileFunction('text', 'odt')">odt</p>
-                    <p class="text" onclick="setFileFunction('text', 'html')">html</p>
-                    <p class="text" onclick="setFileFunction('text', 'htm')">htm</p>
-                    <p class="text" onclick="setFileFunction('text', 'doc')">doc</p>
-                    <p class="text" onclick="setFileFunction('text', 'docx')">docx</p>
-                    <p class="text" onclick="setFileFunction('text', 'epub')">epub</p>
-                    <p class="none" onclick="setFileFunction('none', 'pdf')">pdf</p>
-                    <p class="ppt" onclick="setFileFunction('ppt', 'pptx')">pptx</p>
-                    <p class="ppt" onclick="setFileFunction('ppt', 'ppt')">ppt</p>
-                    <p class="ppt" onclick="setFileFunction('ppt', 'odp')">odp</p>
-                    <p class="exel" onclick="setFileFunction('exel', 'xls')">xls</p>
-                    <p class="exel" onclick="setFileFunction('exel', 'xlsx')">xlsx</p>
-                    <p class="exel" onclick="setFileFunction('exel', 'ods')">ods</p>
+                    <p class="none" onclick="setFileFunction('none', 'markdown')">markdown</p>
+                    <p class="none" onclick="setFileFunction('none', 'rst')">rst</p>
+                    <p class="none" onclick="setFileFunction('none', 'asciidoc')">asciidoc</p>
+                    <p class="none" onclick="setFileFunction('none', 'org')">org</p>
+                    <p class="none" onclick="setFileFunction('none', 'muse')">muse</p>
+                    <p class="none" onclick="setFileFunction('none', 'textile')">textile</p>
+                    <p class="none" onclick="setFileFunction('none', 'markua')">markua</p>
+                    <p class="none" onclick="setFileFunction('none', 'html')">html</p>
+                    <p class="none" onclick="setFileFunction('none', 'html5')">html5</p>
+                    <p class="none" onclick="setFileFunction('none', 'epub')">epub</p>
+                    <p class="none" onclick="setFileFunction('none', 'texinfo')">texinfo</p>
+                    <p class="none" onclick="setFileFunction('none', 'haddock')">haddock</p>
+                    <p class="none" onclick="setFileFunction('none', 'latex')">latex</p>
+                    <p class="none" onclick="setFileFunction('none', 'context')">context</p>
+                    <p class="none" onclick="setFileFunction('none', 'docbook')">docbook</p>
+                    <p class="none" onclick="setFileFunction('none', 'jats')">jats</p>
+                    <p class="none" onclick="setFileFunction('none', 'tei')">tei</p>
+                    <p class="none" onclick="setFileFunction('none', 'opendocument')">opendocument</p>
+                    <p class="none" onclick="setFileFunction('none', 'opml')">opml</p>
+                    <p class="none" onclick="setFileFunction('none', 'bibtex')">bibtex</p>
+                    <p class="none" onclick="setFileFunction('none', 'biblatex')">biblatex</p>
+                    <p class="none" onclick="setFileFunction('none', 'docx')">docx</p>
+                    <p class="none" onclick="setFileFunction('none', 'rtf')">rtf</p>
+                    <p class="none" onclick="setFileFunction('none', 'odt')">odt</p>
+                    <p class="none" onclick="setFileFunction('none', 'ipynb')">ipynb</p>
+                    <p class="none" onclick="setFileFunction('none', 'icml')">icml</p>
+                    <p class="none" onclick="setFileFunction('none', 'typst')">typst</p>
+                    <p class="none" onclick="setFileFunction('none', 'mediawiki')">mediawiki</p>
+                    <p class="none" onclick="setFileFunction('none', 'dokuwiki')">dokuwiki</p>
+                    <p class="none" onclick="setFileFunction('none', 'xwiki')">xwiki</p>
+                    <p class="none" onclick="setFileFunction('none', 'zimwiki')">zimwiki</p>
+                    <p class="none" onclick="setFileFunction('none', 'beamer')">beamer</p>
+                    <p class="none" onclick="setFileFunction('none', 'pptx')">pptx</p>
+                    <p class="none" onclick="setFileFunction('none', 'slidy')">slidy</p>
+                    <p class="none" onclick="setFileFunction('none', 'revealjs')">revealjs</p>
+                    <p class="none" onclick="setFileFunction('none', 'slideous')">slideous</p>
+                    <p class="none" onclick="setFileFunction('none', 's5')">s5</p>
+                    <p class="none" onclick="setFileFunction('none', 'dzslides')">dzslides</p>
+
                 </div>
             </div>
             
@@ -50,6 +76,7 @@
                 <input class="buttons" type="button" value="Upload" id="submitButton" onclick="sendData()">
             </div>
         </div>
+        <h1 id="error"></h1>
     </div>
     <p id="upload-status">
         {% if status %}
