@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, send_file, make_response
 from flask_swagger_ui import get_swaggerui_blueprint
 import os
-import chnage  # Dein Konvertierungsskript
+import pandoc  # Dein Konvertierungsskript
 from flask_cors import CORS
 import shutil
 import logging
@@ -141,7 +141,7 @@ def upload_file():
 
     try:
         logging.debug(f"Starting conversion from {filepath} to {target_format}")
-        chnage.start(filepath, target_format)
+        pandoc.start(filepath, target_format)
         
         converted_filename = os.path.splitext(filename)[0] + f'.{target_format}'
         converted_filepath = os.path.join(app.config['CONVERT_FOLDER'], converted_filename)

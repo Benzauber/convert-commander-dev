@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template, redirect, url_for, jsonify, send_file
 import os
-import chnage
+import pandoc
+import libre
 from flask_cors import CORS
 import shutil
 from threading import Timer
@@ -18,6 +19,27 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 global_filetest = None
 folder_path_1 = 'uploads'
 folder_path_2 = 'convert'
+
+pandoc_formats = [
+    "markdown", "rst", "asciidoc", "org", "muse", "textile", "markua", "txt2tags", "djot",
+    "html", "xhtml", "html5", "chunked-html",
+    "epub", "fictionbook2",
+    "texinfo", "haddock",
+    "roff-man", "roff-ms", "mdoc-man",
+    "latex", "context",
+    "docbook", "jats", "bits", "tei", "opendocument", "opml",
+    "bibtex", "biblatex", "csl-json", "csl-yaml", "ris", "endnote",
+    "docx", "rtf", "odt",
+    "ipynb",
+    "icml", "typst",
+    "mediawiki", "dokuwiki", "tikimediawiki", "twiki", "vimwiki", "xwiki", "zimwiki", "jira-wiki", "creole",
+    "beamer", "pptx", "slidy", "revealjs", "slideous", "s5", "dzslides",
+    "csv", "tsv",
+    "ansi-text",
+    "pdf", "txt"
+]
+
+libreoffice_formats = ["xls", "xlsx", "ods", "ppt", "pptx", "odp"]
 
 def delete_files_in_folder(folder_path):
     # Überprüfen, ob der Ordner existiert
@@ -52,12 +74,9 @@ def delete_files_after_delay():
 @app.route('/', methods=['GET', 'POST'])
 def index():
     global global_filetest
-
-
     if request.method == 'POST':
         if 'file' not in request.files:
             return redirect(url_for('index', status='Keine Datei ausgewählt'))
-        
         file = request.files['file']
         
         if file.filename == '':
@@ -67,7 +86,13 @@ def index():
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
             file.save(filepath)
     
-            chnage.start(filepath, global_filetest)
+            if global_filetest in libreoffice_formats:
+                print("Libreoffice")
+                libre.start(filepath, global_filetest)
+            elif global_filetest in pandoc_formats:
+                print("Pandoc")
+                pandoc.start(filepath, global_filetest)
+ 
     
             response = redirect(url_for('download', filename=file.filename))
     
@@ -78,10 +103,6 @@ def index():
         
         elif file:
             return redirect(url_for('index', status='Datei hochgeladen, aber Dateityp nicht ausgewählt'))
-
-
-
-
 
     return render_template('index.html', status=request.args.get('status'))
 

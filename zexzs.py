@@ -1,3 +1,4 @@
-test = "world"
+import pandoc
+file = 'conversion_results.txt'
 
-hello = 'hello'test
+pandoc.start(file, 'epub')

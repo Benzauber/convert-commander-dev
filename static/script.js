@@ -2,8 +2,22 @@ var elementsDown2 = document.getElementsByClassName("dropdown-content2");
 var value = "";
 var valuename = "";
 // var textGuppe = [".docx", ".txt", ".odt", ".html", ".htm", ".doc", ".epub"];
-// var tabelleGruppe = [".xls", ".xlsx", ".ods"];
-// var persentGruppe = [".ppt", ".pptx", ".odp"];
+var tabelleGruppe = [".xls", ".xlsx", ".ods"];
+var persentGruppe = [".ppt", ".pptx", ".odp"];
+var pandocGruppe = [ ".md", ".rst", ".asciidoc", ".org", ".muse", ".textile", ".markua", ".txt2tags", ".djot",
+  ".html", ".xhtml", ".html5", ".chunked-html",
+  ".epub", ".fictionbook2",
+  ".texinfo", ".haddock", ".roff-man", ".roff-ms", ".mdoc-man",
+  ".latex", ".context",
+  ".docbook", ".jats", ".bits", ".tei", ".opendocument", ".opml",
+  ".bibtex", ".biblatex", ".csl-json", ".csl-yaml", ".ris", ".endnote",
+  ".docx", ".rtf", ".odt",
+  ".ipynb",
+  ".icml", ".typst",
+  ".mediawiki", ".dokuwiki", ".tikimediawiki", ".twiki", ".vimwiki", ".xwiki", ".zimwiki", ".jira-wiki", ".creole",
+  ".beamer", ".slidy", ".revealjs", ".slideous", ".s5", ".dzslides",
+  ".csv", ".tsv",
+  ".ansi-text" ]
 var convertFile = [
   ".md", ".rst", ".asciidoc", ".org", ".muse", ".textile", ".markua", ".txt2tags", ".djot",
   ".html", ".xhtml", ".html5", ".chunked-html",
@@ -18,7 +32,7 @@ var convertFile = [
   ".mediawiki", ".dokuwiki", ".tikimediawiki", ".twiki", ".vimwiki", ".xwiki", ".zimwiki", ".jira-wiki", ".creole",
   ".beamer", ".slidy", ".revealjs", ".slideous", ".s5", ".dzslides",
   ".csv", ".tsv",
-  ".ansi-text"
+  ".ansi-text", ".xls", ".xlsx", ".ods", ".ppt", ".pptx", ".odp"
 ];
 
 
@@ -82,12 +96,12 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
   }
 });
 
-// function meineFunktion(name) {
-  var elementsText = document.getElementsByClassName("text");
+function meineFunktion(name) {
+  var elementsPandoc = document.getElementsByClassName("pandoc");
   var elementsExel = document.getElementsByClassName("exel");
   var elementsPPT = document.getElementsByClassName("ppt");
 
-  if (textGuppe.includes(name)) {
+  if (pandocGruppe.includes(name)) {
     for (var i = 0; i < elementsExel.length; i++) {
       elementsExel[i].style.display = "none"; 
     }
@@ -98,18 +112,22 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
     for (var i = 0; i < elementsPPT.length; i++) {
       elementsPPT[i].style.display = "none";
     }
-    for (var i = 0; i < elementsText.length; i++) {
-      elementsText[i].style.display = "none";
+    for (var i = 0; i < elementsPandoc.length; i++) {
+      elementsPandoc[i].style.display = "none";
     }
   } else if (persentGruppe.includes(name)) {
-    for (var i = 0; i < elementsText.length; i++) {
-      elementsText[i].style.display = "none"; 
+    for (var i = 0; i < elementsPandoc.length; i++) {
+      elementsPandoc[i].style.display = "none"; 
     }
     for (var i = 0; i < elementsExel.length; i++) {
       elementsExel[i].style.display = "none";
     }
-  } 
-//}
+  } else {
+    elementsPandoc[i].style.display = "flex"; 
+    elementsExel[i].style.display = "flex";
+    elementsPPT[i].style.display = "flex";
+  }
+}
 
 function sendData() {
   fetch('/empfange_daten', {

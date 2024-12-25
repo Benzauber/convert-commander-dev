@@ -19,7 +19,7 @@ convert_types = [
     "beamer", "pptx", "slidy", "revealjs", "slideous", "s5", "dzslides",
     "csv", "tsv",
     "ansi-text",
-    "pdf"
+
 ]
 
 # Funktion zum Konvertieren
