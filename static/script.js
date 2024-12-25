@@ -2,6 +2,9 @@ var elementsDown2 = document.getElementsByClassName("dropdown-content2");
 var value = "";
 var valuename = "";
 // var textGuppe = [".docx", ".txt", ".odt", ".html", ".htm", ".doc", ".epub"];
+var videoGruppe = ['.mp4', '.avi', '.mov', '.mkv', '.webm', '.flv', '.wmv', '.mpeg', '.mpg', '.ts', '.3gp',];
+var audioGruppe = ['.mp3', '.wav', '.aac', '.flac', '.ogg', '.m4a', '.wma', '.ac3', '.amr','.mp4', '.avi', '.mov', '.mkv', '.webm', '.flv', '.wmv', '.mpeg', '.mpg', '.ts', '.3gp'];
+var imageGruppe = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tiff', '.webp'];
 var tabelleGruppe = [".xls", ".xlsx", ".ods"];
 var persentGruppe = [".ppt", ".pptx", ".odp"];
 var pandocGruppe = [ ".md", ".rst", ".asciidoc", ".org", ".muse", ".textile", ".markua", ".txt2tags", ".djot",
@@ -32,7 +35,9 @@ var convertFile = [
   ".mediawiki", ".dokuwiki", ".tikimediawiki", ".twiki", ".vimwiki", ".xwiki", ".zimwiki", ".jira-wiki", ".creole",
   ".beamer", ".slidy", ".revealjs", ".slideous", ".s5", ".dzslides",
   ".csv", ".tsv",
-  ".ansi-text", ".xls", ".xlsx", ".ods", ".ppt", ".pptx", ".odp"
+  ".ansi-text", ".xls", ".xlsx", ".ods", ".ppt", ".pptx", ".odp", '.mp4', '.avi', '.mov', '.mkv', '.webm', '.flv', '.wmv',
+  '.mpeg', '.mpg', '.ts', '.3gp', '.mp3', '.wav', '.aac', '.flac', '.ogg', '.m4a', '.wma', '.ac3', '.amr', '.jpg', '.jpeg',
+  '.png', '.gif', '.bmp', '.tiff', '.webp', '.mxf', '.vob', '.asf', '.dv', '.m3u8', '.mpd'
 ];
 
 
@@ -100,6 +105,11 @@ function meineFunktion(name) {
   var elementsPandoc = document.getElementsByClassName("pandoc");
   var elementsExel = document.getElementsByClassName("exel");
   var elementsPPT = document.getElementsByClassName("ppt");
+  var elementsVideo = document.getElementsByClassName("video");
+  var elementsAudio = document.getElementsByClassName("audio");
+  var elementsImage = document.getElementsByClassName("image");
+
+ 
 
   if (pandocGruppe.includes(name)) {
     for (var i = 0; i < elementsExel.length; i++) {
@@ -108,12 +118,30 @@ function meineFunktion(name) {
     for (var i = 0; i < elementsPPT.length; i++) {
       elementsPPT[i].style.display = "none";
     }
+    for (var i = 0; i < elementsVideo.length; i++) {
+      elementsVideo[i].style.display = "none";
+    }
+    for (var i = 0; i < elementsAudio.length; i++) {
+      elementsAudio[i].style.display = "none";
+    }
+    for (var i = 0; i < elementsImage.length; i++) {
+      elementsImage[i].style.display = "none";
+    }
   } else if (tabelleGruppe.includes(name)) {
     for (var i = 0; i < elementsPPT.length; i++) {
       elementsPPT[i].style.display = "none";
     }
     for (var i = 0; i < elementsPandoc.length; i++) {
       elementsPandoc[i].style.display = "none";
+    }
+    for (var i = 0; i < elementsVideo.length; i++) {
+      elementsVideo[i].style.display = "none";
+    }
+    for (var i = 0; i < elementsAudio.length; i++) {
+      elementsAudio[i].style.display = "none";
+    }
+    for (var i = 0; i < elementsImage.length; i++) {
+      elementsImage[i].style.display = "none";
     }
   } else if (persentGruppe.includes(name)) {
     for (var i = 0; i < elementsPandoc.length; i++) {
@@ -122,12 +150,67 @@ function meineFunktion(name) {
     for (var i = 0; i < elementsExel.length; i++) {
       elementsExel[i].style.display = "none";
     }
-  } else {
-    elementsPandoc[i].style.display = "flex"; 
-    elementsExel[i].style.display = "flex";
-    elementsPPT[i].style.display = "flex";
+    for (var i = 0; i < elementsVideo.length; i++) {
+      elementsVideo[i].style.display = "none";
+    }
+    for (var i = 0; i < elementsAudio.length; i++) {
+      elementsAudio[i].style.display = "none";
+    }
+    for (var i = 0; i < elementsImage.length; i++) {
+      elementsImage[i].style.display = "none";
+    }
+  } else if (videoGruppe.includes(name)) {
+    for (var i = 0; i < elementsPandoc.length; i++) {
+      elementsPandoc[i].style.display = "none"; 
+    }
+    for (var i = 0; i < elementsExel.length; i++) {
+      elementsExel[i].style.display = "none";
+    }
+    for (var i = 0; i < elementsPPT.length; i++) {
+      elementsPPT[i].style.display = "none";
+    }
+//    for (var i = 0; i < elementsAudio.length; i++) {
+//      elementsAudio[i].style.display = "none";
+//   }
+    for (var i = 0; i < elementsImage.length; i++) {
+      elementsImage[i].style.display = "none";
+    }
+  } else if (audioGruppe.includes(name)) {
+    for (var i = 0; i < elementsPandoc.length; i++) {
+      elementsPandoc[i].style.display = "none"; 
+    }
+    for (var i = 0; i < elementsExel.length; i++) {
+      elementsExel[i].style.display = "none";
+    }
+    for (var i = 0; i < elementsPPT.length; i++) {
+      elementsPPT[i].style.display = "none";
+    }
+    for (var i = 0; i < elementsVideo.length; i++) {
+      elementsVideo[i].style.display = "none";
+    }
+    for (var i = 0; i < elementsImage.length; i++) {
+      elementsImage[i].style.display = "none";
+    }
+  } else if (imageGruppe.includes(name)) {
+    for (var i = 0; i < elementsPandoc.length; i++) {
+      elementsPandoc[i].style.display = "none"; 
+    }
+    for (var i = 0; i < elementsExel.length; i++) {
+      elementsExel[i].style.display = "none";
+    }
+    for (var i = 0; i < elementsPPT.length; i++) {
+      elementsPPT[i].style.display = "none";
+    }
+    for (var i = 0; i < elementsVideo.length; i++) {
+      elementsVideo[i].style.display = "none";
+    }
+    for (var i = 0; i < elementsAudio.length; i++) {
+      elementsAudio[i].style.display = "none";
+    }
   }
 }
+
+
 
 function sendData() {
   fetch('/empfange_daten', {

@@ -2,6 +2,7 @@ from flask import Flask, request, render_template, redirect, url_for, jsonify, s
 import os
 import pandoc
 import libre
+import ffmpeg
 from flask_cors import CORS
 import shutil
 from threading import Timer
@@ -40,6 +41,12 @@ pandoc_formats = [
 ]
 
 libreoffice_formats = ["xls", "xlsx", "ods", "ppt", "pptx", "odp"]
+
+ffmpeg_formats = [
+    'mp4', 'avi', 'mov', 'mkv', 'webm', 'flv', 'wmv', 'mpeg', 'mpg', 'ts', '3gp', 'mp3', 'wav', 'aac', 'flac',
+    'ogg', 'm4a', 'wma', 'ac3', 'amr', 'jpg', 'jpeg', 'png', 'gif', 'bmp', 'tiff', 'webp', 'mxf', 'vob',
+    'asf', 'dv', 'm3u8', 'mpd'
+    ]
 
 def delete_files_in_folder(folder_path):
     # Überprüfen, ob der Ordner existiert
@@ -92,6 +99,9 @@ def index():
             elif global_filetest in pandoc_formats:
                 print("Pandoc")
                 pandoc.start(filepath, global_filetest)
+            elif global_filetest in ffmpeg_formats:
+                print("Ffmpeg")
+                ffmpeg.start(filepath, global_filetest)
  
     
             response = redirect(url_for('download', filename=file.filename))
