@@ -16,7 +16,7 @@ var convertFile = [
   ".ipynb",
   ".icml", ".typst",
   ".mediawiki", ".dokuwiki", ".tikimediawiki", ".twiki", ".vimwiki", ".xwiki", ".zimwiki", ".jira-wiki", ".creole",
-  ".beamer", ".pptx", ".slidy", ".revealjs", ".slideous", ".s5", ".dzslides",
+  ".beamer", ".slidy", ".revealjs", ".slideous", ".s5", ".dzslides",
   ".csv", ".tsv",
   ".ansi-text"
 ];
@@ -108,7 +108,7 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
     for (var i = 0; i < elementsExel.length; i++) {
       elementsExel[i].style.display = "none";
     }
-  }
+  } 
 //}
 
 function sendData() {
@@ -153,22 +153,30 @@ document.querySelectorAll('.dropdown2').forEach(dropdown => {
 
 
 
+
 function updateFileName() {
   const fileInput = document.getElementById('fileInput');
   const fileLabel = document.getElementById('fileLabel');
+  const errorElement = document.getElementById('error');
   
   if (fileInput.files.length > 0) {
-    fileLabel.textContent = fileInput.files[0].name;
+    const fileName = fileInput.files[0].name;
+    const fileExtension = '.' + fileName.split('.').pop().toLowerCase(); // Kleinbuchstaben für Konsistenz
+
+    if (convertFile.includes(fileExtension)) {
+      // Kein Fehler, Dateiname anzeigen
+      errorElement.innerHTML = '';
+      fileLabel.textContent = fileName;
+    } else {
+      // Fehler: Ungültiges Dateiformat
+      errorElement.innerHTML = 'Invalid file format. More details: <a href="https://pandoc.org/" target="_blank">pandoc</a>';
+      fileLabel.textContent = 'Datei auswählen'; // Standard-Text zurücksetzen
+    }
   } else {
+    // Keine Datei ausgewählt
     fileLabel.textContent = 'Datei auswählen';
+    errorElement.innerHTML = ''; // Kein Fehler anzeigen
   }
-  
-  if (convertFile.includes(fileLabel)) {
-    document.getElementById("error").innerHTML = '';
-
-  } else {
-    document.getElementById("error").innerHTML = 'Invalid file format. <a href="https://pandoc.org/">pandoc</a>';
-
-  }
-
 }
+
+
