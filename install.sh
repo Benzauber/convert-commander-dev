@@ -15,12 +15,11 @@ echo "Starting Convert-Commander installation..."
 # Funktion zur Fortschrittsanzeige
 progress_bar() {
     local progress=$1
-    local total=12
+    local total=8
     local percent=$(( progress * 100 / total ))
     local completed=$(( percent / 5 ))
     local remaining=$(( 20 - completed ))
 
-    # Erzeuge den Fortschrittsbalken
     bar="["
     for ((i=0; i<$completed; i++)); do
         bar+="#"
@@ -30,7 +29,6 @@ progress_bar() {
     done
     bar+="] $percent%"
 
-    # Zeige den Fortschrittsbalken an
     echo -ne "$bar\r"
     sleep 1
     if [ "$progress" -lt "$total" ]; then
@@ -38,18 +36,12 @@ progress_bar() {
     fi
 }
 
-total_steps=11
+total_steps=8
 current_step=0
 
 # Python installieren
 echo "Installing Python..."
-sudo apt-get install -y python3.6
-((current_step++))
-progress_bar $current_step
-
-# pip installieren
-echo "Installing pip..."
-sudo apt install -y python3-pip
+sudo apt-get install -y python3 python3-pip
 ((current_step++))
 progress_bar $current_step
 
@@ -60,21 +52,9 @@ source venv/bin/activate
 ((current_step++))
 progress_bar $current_step
 
-# Flask installieren
-echo "Installing Flask..."
-pip install flask
-((current_step++))
-progress_bar $current_step
-
-# API-Flask installieren
-echo "Installing API-Flask..."
-pip install apiflask 
-pip install flask-cors
-((current_step++))
-progress_bar $current_step
-
-# Swagger UI installieren
-pip install flask-swagger-ui 
+# Abhängigkeiten installieren
+echo "Installing dependencies..."
+pip install -r requirements.txt
 ((current_step++))
 progress_bar $current_step
 
@@ -84,21 +64,15 @@ sudo apt-get install -y libreoffice
 ((current_step++))
 progress_bar $current_step
 
-# PyOO installieren
-echo "Installing pyoo..."
-pip install pyoo 
+# ffmpeg installieren
+echo "Installing ffmpeg..."
+sudo apt-get install ffmpeg
 ((current_step++))
 progress_bar $current_step
 
-# gunicorn installieren
-echo "Installing gunicorn..."
-pip install gunicorn
-((current_step++))
-progress_bar $current_step
-
-# jp installieren
-echo "Installing jp..."
-sudo apt-get install jq
+# pandoc installieren
+echo "Installing pandoc..."
+sudo apt-get install pandoc
 ((current_step++))
 progress_bar $current_step
 
@@ -109,15 +83,13 @@ mkdir -p ./convert ./uploads
 ((current_step++))
 progress_bar $current_step
 
-chmod +x create-alias.sh
+# Skripte ausführbar machen
+chmod +x create-alias.sh tokenapi.sh
 bash create-alias.sh
 sleep 5
 source ~/.bashrc
 ((current_step++))
 progress_bar $current_step
-
-chmod +x tokenapi.sh
-
 
 # Fertigstellung anzeigen
 echo -e "\nConvert-Commander installation completed successfully!"
