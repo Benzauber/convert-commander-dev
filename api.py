@@ -1,7 +1,9 @@
 from flask import Flask, request, jsonify, send_file, make_response
 from flask_swagger_ui import get_swaggerui_blueprint
 import os
-import pandoc  # Dein Konvertierungsskript
+import pandoc
+import libre
+import ffmpeg
 from flask_cors import CORS
 import shutil
 import logging
@@ -18,6 +20,33 @@ UPLOAD_FOLDER = 'uploads'
 CONVERT_FOLDER = 'convert'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['CONVERT_FOLDER'] = CONVERT_FOLDER
+
+pandoc_formats = [
+    "markdown", "rst", "asciidoc", "org", "muse", "textile", "markua", "txt2tags", "djot",
+    "html", "xhtml", "html5", "chunked-html",
+    "epub", "fictionbook2",
+    "texinfo", "haddock",
+    "roff-man", "roff-ms", "mdoc-man",
+    "latex", "context",
+    "docbook", "jats", "bits", "tei", "opendocument", "opml",
+    "bibtex", "biblatex", "csl-json", "csl-yaml", "ris", "endnote",
+    "docx", "rtf", "odt",
+    "ipynb",
+    "icml", "typst",
+    "mediawiki", "dokuwiki", "tikimediawiki", "twiki", "vimwiki", "xwiki", "zimwiki", "jira-wiki", "creole",
+    "beamer", "pptx", "slidy", "revealjs", "slideous", "s5", "dzslides",
+    "csv", "tsv",
+    "ansi-text",
+    "pdf", "txt"
+]
+
+libreoffice_formats = ["xls", "xlsx", "ods", "ppt", "pptx", "odp"]
+
+ffmpeg_formats = [
+    'mp4', 'avi', 'mov', 'mkv', 'webm', 'flv', 'wmv', 'mpeg', 'mpg', 'ts', '3gp', 'mp3', 'wav', 'aac', 'flac',
+    'ogg', 'm4a', 'wma', 'ac3', 'amr', 'jpg', 'jpeg', 'png', 'gif', 'bmp', 'tiff', 'webp', 'mxf', 'vob',
+    'asf', 'dv', 'm3u8', 'mpd'
+    ]
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(CONVERT_FOLDER, exist_ok=True)
@@ -141,7 +170,17 @@ def upload_file():
 
     try:
         logging.debug(f"Starting conversion from {filepath} to {target_format}")
-        pandoc.start(filepath, target_format)
+
+        if target_format in libreoffice_formats:
+          print("Libreoffice")
+          libre.start(filepath, target_format)
+        elif target_format in pandoc_formats:
+          print("Pandoc")
+          pandoc.start(filepath, target_format)
+        elif target_format in ffmpeg_formats:
+          print("Ffmpeg")
+          ffmpeg.start(filepath, target_format)
+ 
         
         converted_filename = os.path.splitext(filename)[0] + f'.{target_format}'
         converted_filepath = os.path.join(app.config['CONVERT_FOLDER'], converted_filename)
