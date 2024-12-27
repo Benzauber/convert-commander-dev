@@ -10,7 +10,7 @@ WORKDIR /app
 
 # Systempakete installieren
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    libreoffice \
+    libreoffice-common libreoffice-java-common libreoffice-writer libreoffice-calc libreoffice-impress libreoffice-headless \
     ffmpeg \
     pandoc \
     && apt-get clean \
