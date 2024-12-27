@@ -60,7 +60,7 @@ progress_bar $current_step
 
 # LibreOffice installieren
 echo "Installing LibreOffice..."
-sudo apt-get install -y libreoffice
+sudo apt-get install libreoffice-common libreoffice-java-common libreoffice-writer libreoffice-calc libreoffice-impress libreoffice-headless
 ((current_step++))
 progress_bar $current_step
 
