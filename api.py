@@ -72,7 +72,7 @@ def generate_token():
     return secrets.token_urlsafe(32)
 
 def hash_token(token):
-    """Generiere einen SHA-256 Hash des Tokens."""
+    """ Generate a SHA-256 hash of the token."""
     return hashlib.sha256(token.encode()).hexdigest()
 
 def token_required(f):
@@ -90,7 +90,7 @@ def token_required(f):
 @app.route('/generate_token', methods=['POST'])
 def create_token():
     """
-    Generiere ein neues API-Token
+    Generate a new API token
     ---
     tags:
       - Authentication
@@ -100,8 +100,8 @@ def create_token():
     """
     token = generate_token()
     hashed_token = hash_token(token)
-    hashed_tokens.add(hashed_token)  # Speichere das gehashte Token
-    return jsonify({'token': token}), 200  # Gebe das einfache Token zurück
+    hashed_tokens.add(hashed_token)  
+    return jsonify({'token': token}), 200  
 
 def delete_files_in_folder(folder_path):
     if os.path.exists(folder_path):
@@ -121,7 +121,7 @@ def delete_files_in_folder(folder_path):
 @token_required
 def upload_file():
     """
-    Lade eine Datei hoch und konvertiere sie in das angegebene Format
+    Upload a file and convert it to the specified format
     ---
     tags:
       - File Conversion
@@ -214,7 +214,7 @@ def upload_file():
 @token_required
 def clear_folders():
     """
-    Leere alle Dateien in den Upload- und Konvertierungsordnern
+    Clear all files in the upload and conversion folders
     ---
     tags:
       - Maintenance

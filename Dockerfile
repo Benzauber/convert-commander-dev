@@ -1,14 +1,14 @@
-# Basis-Image
+# Base image
 FROM python:3.9-slim
 
-# Umgebungsvariablen, um interaktive Eingaben zu vermeiden
+# Environment variables to avoid interactive prompts
 ENV PYTHONUNBUFFERED=1 \
     DEBIAN_FRONTEND=noninteractive
 
-# Arbeitsverzeichnis im Container erstellen
+# Create the working directory in the container
 WORKDIR /app
 
-# Systempakete installieren
+# Install system packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libreoffice-common libreoffice-java-common libreoffice-writer libreoffice-calc libreoffice-impress libreoffice-headless \
     ffmpeg \
@@ -16,18 +16,18 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Abhängigkeiten kopieren und installieren
+# Copy and install dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Projektdateien kopieren
+# Copy project files
 COPY . .
 
-# Ordner für Uploads und Konvertierungen erstellen
+# Create folders for uploads and conversions
 RUN mkdir -p ./uploads ./convert
 
-# Ausführbare Skripte
+# Make scripts executable
 RUN chmod +x create-alias.sh tokenapi.sh
 
-# Standardbefehl beim Start des Containers
+# Default command when the container starts
 CMD ["python3", "index.py"]

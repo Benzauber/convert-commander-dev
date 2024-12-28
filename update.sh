@@ -1,30 +1,30 @@
 #!/bin/bash
 
-# Dynamisch das Verzeichnis des Skripts herausfinden
+# Dynamically find the script's directory
 PROJECT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 echo "Starting Convert-Commander update process..."
 
-# Schritt 1: Ins Projektverzeichnis wechseln
-cd "$PROJECT_DIR" || { echo "Projektverzeichnis nicht gefunden! Abbruch."; exit 1; }
+# Step 1: Change to the project directory
+cd "$PROJECT_DIR" || { echo "Project directory not found! Aborting."; exit 1; }
 
-# Schritt 2: Änderungen von Git abrufen
+# Step 2: Pull the latest changes from Git
 echo "Pulling latest changes from GitHub..."
-git pull || { echo "Fehler beim Abrufen der Änderungen von GitHub! Abbruch."; exit 1; }
+git pull || { echo "Error pulling changes from GitHub! Aborting."; exit 1; }
 
-# Schritt 3: Virtuelle Umgebung aktivieren
+# Step 3: Activate the virtual environment
 echo "Activating virtual environment..."
-source venv/bin/activate || { echo "Fehler beim Aktivieren der virtuellen Umgebung! Abbruch."; exit 1; }
+source venv/bin/activate || { echo "Error activating virtual environment! Aborting."; exit 1; }
 
-# Schritt 4: Abhängigkeiten aktualisieren
+# Step 4: Update dependencies
 echo "Updating Python dependencies..."
-pip install --upgrade -r requirements.txt || { echo "Fehler beim Aktualisieren der Abhängigkeiten! Abbruch."; exit 1; }
+pip install --upgrade -r requirements.txt || { echo "Error updating dependencies! Aborting."; exit 1; }
 
-# Schritt 5: Dienst neu starten (optional)
-SERVICE_NAME="convert-commander" # Passe den Dienstnamen an
+# Step 5: Restart the service (optional)
+SERVICE_NAME="convert-commander" # Adjust the service name
 if systemctl is-active --quiet "$SERVICE_NAME"; then
     echo "Restarting the Convert-Commander service..."
-    sudo systemctl restart "$SERVICE_NAME" || { echo "Fehler beim Neustarten des Dienstes! Abbruch."; exit 1; }
+    sudo systemctl restart "$SERVICE_NAME" || { echo "Error restarting the service! Aborting."; exit 1; }
 else
     echo "Service is not running, skipping restart."
 fi

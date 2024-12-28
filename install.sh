@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Logo anzeigen
+# Display logo
 cat << "EOF"
   _____                                _             _____                                                _             
  / ____|                              | |           / ____|                                              | |            
@@ -12,7 +12,7 @@ EOF
 
 echo "Starting Convert-Commander installation..."
 
-# Funktion zur Fortschrittsanzeige
+# Function for progress bar display
 progress_bar() {
     local progress=$1
     local total=8
@@ -39,51 +39,50 @@ progress_bar() {
 total_steps=8
 current_step=0
 
-# Python installieren
+# Installing Python
 echo "Installing Python..."
 sudo apt-get install -y python3 python3-pip
 ((current_step++))
 progress_bar $current_step
 
-# Virtuelle Umgebung einrichten
+# Setting up virtual environment
 echo "Setting up virtual environment..."
 python3 -m venv venv
 source venv/bin/activate
 ((current_step++))
 progress_bar $current_step
 
-# Abhängigkeiten installieren
+# Installing dependencies
 echo "Installing dependencies..."
 pip install -r requirements.txt
 ((current_step++))
 progress_bar $current_step
 
-# LibreOffice installieren
+# Installing LibreOffice
 echo "Installing LibreOffice..."
 sudo apt-get install libreoffice-common libreoffice-java-common libreoffice-writer libreoffice-calc libreoffice-impress libreoffice-headless
 ((current_step++))
 progress_bar $current_step
 
-# ffmpeg installieren
+# Installing ffmpeg
 echo "Installing ffmpeg..."
 sudo apt-get install ffmpeg
 ((current_step++))
 progress_bar $current_step
 
-# pandoc installieren
+# Installing pandoc
 echo "Installing pandoc..."
 sudo apt-get install pandoc
 ((current_step++))
 progress_bar $current_step
 
-
-# Ordner erstellen
+# Creating folders
 echo "Creating folders..."
 mkdir -p ./convert ./uploads
 ((current_step++))
 progress_bar $current_step
 
-# Skripte ausführbar machen
+# Making scripts executable
 chmod +x create-alias.sh tokenapi.sh
 bash create-alias.sh
 sleep 5
@@ -91,5 +90,5 @@ source ~/.bashrc
 ((current_step++))
 progress_bar $current_step
 
-# Fertigstellung anzeigen
+# Completion message
 echo -e "\nConvert-Commander installation completed successfully!"

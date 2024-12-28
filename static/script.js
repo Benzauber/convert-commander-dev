@@ -58,14 +58,14 @@ function filterFunction(dropdownClass) {
   const filter = input.value.toLowerCase();
   const pElements = document.querySelectorAll(`.${dropdownClass} p`);
 
-  // Alle p-Elemente zuerst wieder sichtbar machen
+  // Make all p-elements visible again first
   pElements.forEach(function (item) {
     item.style.display = "flex";
   });
 
-  // Dann nur die Elemente filtern, die der Suchabfrage entsprechen
+  // Then filter only the elements that match the search query
   pElements.forEach(function (item) {
-    const textValue = item.textContent.toLowerCase(); // Verwenden nur von textContent für bessere Kompatibilität
+    const textValue = item.textContent.toLowerCase(); 
     if (textValue.indexOf(filter) == -1) {
       item.style.display = "none";
     } else {
@@ -73,7 +73,7 @@ function filterFunction(dropdownClass) {
     }
   });
 
-  // Führe 'meineFunktion' nur aus, wenn das Suchfeld leer ist
+  // Execute 'meineFunktion' only if the search field is empty
   if (elementsDown2.length > 0 && window.getComputedStyle(elementsDown2[0]).display === "flex" && input.value.trim() === "") {
     console.log(globalfileExtension)
     meineFunktion(globalfileExtension);
@@ -102,21 +102,20 @@ document.getElementById('fileInput').addEventListener('change', function (event)
   const file = event.target.files[0];
 
   if (file) {
-    const fileName = file.name; // Holt den Dateinamen
-    const fileExtension = '.' + fileName.split('.').pop(); // Holt die Dateiendung mit Punkt
+    const fileName = file.name; 
+    const fileExtension = '.' + fileName.split('.').pop();
 
     console.log(`Dateiendung: ${fileExtension}`);
     globalfileExtension = fileExtension
     overfeed();
     flexElemente();
-    meineFunktion(fileExtension); // Funktion zum Steuern der Anzeige aufrufen
-  } else {
+    meineFunktion(fileExtension); 
     console.log('Keine Datei ausgewählt.');
   }
 });
 
 function flexElemente() {
-  // Funktion, um den Stil auf alle Elemente einer Sammlung anzuwenden
+  // Function to apply the style to all elements of a collection
   function setDisplayFlex(elements) {
     for (var i = 0; i < elements.length; i++) {
       elements[i].style.display = "flex";
@@ -248,18 +247,16 @@ function sendData() {
     })
       .then(response => {
         if (!response.ok) {
-          throw new Error('Netzwerkantwort war nicht ok');
+          throw new Error('Network response was not ok.');
         }
         return response.json();
       })
       .then(data => {
-        console.log('Erfolg:', data);
-        // Hier können Sie das Formular manuell absenden
+        console.log('Success:', data);
         document.querySelector('form').submit();
       })
       .catch((error) => {
-        console.error('Fehler:', error);
-        // Hier können Sie dem Benutzer eine Fehlermeldung anzeigen
+        console.error('Error:', error);
       });
 
   }
@@ -269,14 +266,12 @@ document.querySelectorAll('.dropdown2').forEach(dropdown => {
     const dropdownContent = dropdown.querySelector('.dropdown-content2');
     dropdownContent.style.maxHeight = '300px';
     dropdownContent.style.opacity = '1';
-    // Breite wird jetzt durch CSS-Transition geregelt
   });
 
   dropdown.addEventListener('mouseleave', () => {
     const dropdownContent = dropdown.querySelector('.dropdown-content2');
     dropdownContent.style.maxHeight = '0';
     dropdownContent.style.opacity = '0';
-    // Breite wird jetzt durch CSS-Transition geregelt
   });
 });
 
@@ -288,20 +283,17 @@ function updateFileName() {
 
   if (fileInput.files.length > 0) {
     const fileName = fileInput.files[0].name;
-    const fileExtension = '.' + fileName.split('.').pop().toLowerCase(); // Kleinbuchstaben für Konsistenz
-
+    const fileExtension = '.' + fileName.split('.').pop().toLowerCase();
     if (convertFile.includes(fileExtension)) {
-      // Kein Fehler, Dateiname anzeigen
       errorMessage("none");
-
       fileLabel.textContent = fileName;
     } else {
-      // Fehler: Ungültiges Dateiformat
-      fileLabel.textContent = 'Datei auswählen'; // Standard-Text zurücksetzen
+      // Error: Invalid file format
+      fileLabel.textContent = 'Datei auswählen';
       errorMessage("Invalidfile");
     }
   } else {
-    // Keine Datei ausgewählt
+    // No file selected
     fileLabel.textContent = 'Datei auswählen';
     errorMessage("none");
   }
@@ -329,17 +321,16 @@ function overfeed() {
 
     let var1 = "." + valuename;
 
-    // Funktion, die prüft, ob beide Variablen in derselben Gruppe sind
     let var1Group = groups.filter(group => group.includes(globalfileExtension));
     let var2Group = groups.filter(group => group.includes(var1));
 
     if (var1Group.length > 0 && var2Group.length > 0 && var1Group[0] === var2Group[0]) {
-      console.log("Beide Variablen sind in der gleichen Gruppe.");
+      console.log("The variables are in the same group");
       console.log(var1, globalfileExtension);
       errorMessage("none");
       same = true;
     } else {
-      console.log("Die Variablen sind in unterschiedlichen Gruppen.");
+      console.log("The variables are in different groups.");
       console.log(var1, globalfileExtension);
       errorMessage("notsame");
       same = false;
