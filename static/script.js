@@ -12,7 +12,7 @@ var elementsAudio = document.getElementsByClassName("audio");
 var elementsImage = document.getElementsByClassName("image");
 
 // var textGuppe = [".docx", ".txt", ".odt", ".html", ".htm", ".doc", ".epub"];
-var videoGruppe = ['.mp4', '.avi', '.mov', '.mkv', '.webm', '.flv', '.wmv', '.mpeg', '.mpg', '.ts', '.3gp',];
+var videoGruppe = ['.mp4', '.avi', '.mov', '.mkv', '.webm', '.flv', '.wmv', '.mpeg', '.mpg', '.ts', '.3gp', '.gif'];
 var audioGruppe = ['.mp3', '.wav', '.aac', '.flac', '.ogg', '.m4a', '.wma', '.ac3', '.amr', '.mp4', '.avi', '.mov', '.mkv', '.webm', '.flv', '.wmv', '.mpeg', '.mpg', '.ts', '.3gp'];
 var imageGruppe = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tiff', '.webp'];
 var tabelleGruppe = [".xls", ".xlsx", ".ods"];

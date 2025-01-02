@@ -1,13 +1,10 @@
 <!DOCTYPE html>
-<html lang="de">
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Docs</title>
-    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <title>Convert Commander - File Format Guide</title>
 </head>
-
 <body>
     <div class="header">
         <div class="logo">
@@ -17,174 +14,342 @@
             <a href="/">Convert</a>
         </div>
     </div>
-    <br>
-    <table>
-        <h5>Which file can you convert?</h5>
-        <tr>
-            <td>
-                <p>.docs/.doc</p>
-                <p>.txt</p>
-                <p>.odt</p>
-                <p>.html/.htm</p>
-            </td>
-            <td>
-                <p>to</p>
-            </td>
-            <td>
-                <p>.docs/.doc</p>
-                <p>.txt</p>
-                <p>.odt</p>
-                <p>.html/.htm</p>
-                <p>.epub</p>
-                <p>.pdf</p>
-            </td>
-        </tr>
 
-        <tr>
-            <td>
-                <p>.xlsx/.xls</p>
-                <p>.ods</p>
-            </td>
-            <td>
-                <p>to</p>
-            </td>
-            <td>
-                <p>.xlsx/.xls</p>
-                <p>.ods</p>
-                <p>.pdf</p>
-            </td>
-        </tr>
+    <main>
+        <section class="format-cards">
+            <div class="card media-card">
+                <div class="card-header">
+                    <h5>Video Formats (ffmpeg)</h5>
+                    <span class="icon">🎬</span>
+                </div>
+                <br>
+                <div class="format-grid">
+                    <span class="format">.mp4</span>
+                    <span class="format">.avi</span>
+                    <span class="format">.mov</span>
+                    <span class="format">.mkv</span>
+                    <span class="format">.webm</span>
+                    <span class="format">.flv</span>
+                    <span class="format">.wmv</span>
+                    <span class="format">.mpeg</span>
+                    <span class="format">.mpg</span>
+                    <span class="format">.ts</span>
+                    <span class="format">.3gp</span>
+                    <span class="format">.gif</span>
 
-        <tr>
-            <td>
-                <p>.pptx/.ppt</p>
-                <p>.odp</p>
-            </td>
-            <td>
-                <p>to</p>
-            </td>
-            <td>
-                <p>.pptx/.ppt</p>
-                <p>.odp</p>
-                <p>.pdf</p>
-            </td>
-        </tr>
+                </div>
+            </div>
 
-    </table>
-    <div class="exp">
-        <h5>What are the files?</h5>
-        <p><b>.docs:</b> This is not a standard file extension, likely a typo for .docx, which is a Microsoft Word document format.</p>
-        <p><b>.doc:</b> A Microsoft Word document format, commonly used for word processing.</p>
-        <p><b>.txt:</b> A plain text file that contains unformatted text.</p>
-        <p><b>.odt:</b> An OpenDocument Text file, typically used by OpenOffice and LibreOffice for word processing.</p>
-        <p><b>.html:</b> A HyperText Markup Language file, used to structure content on the web.</p>
-        <p><b>.htm:</b> A variant of the .html extension, also used for web pages.</p>
-        <p><b>.epub:</b> An electronic publication (ePub) file, commonly used for eBooks and supported by many eReader devices and applications.</p>        
-        <p><b>.xlsx:</b> A Microsoft Excel file format, used for spreadsheets.</p>
-        <p><b>.xls:</b> An older Microsoft Excel file format, also used for spreadsheets.</p>
-        <p><b>.pdf:</b> A Portable Document Format, widely used for sharing formatted documents.</p>
-        <p><b>.ods:</b> An OpenDocument Spreadsheet file, used by OpenOffice and LibreOffice for spreadsheets.</p>
-        <p><b>.odp:</b> An OpenDocument Presentation file, used by OpenOffice and LibreOffice for presentations.</p>
-        <p><b>.pptx:</b> A Microsoft PowerPoint presentation format, used for creating slideshows.</p>
-        <p><b>.ppt:</b> An older Microsoft PowerPoint format, also used for presentations.</p>
+            <div class="card audio-card">
+                <div class="card-header">
+                    <h5>Audio Formats (ffmpeg)</h5>
+                    <span class="icon">🎵</span>
+                </div>
+                <br>
+                <div class="format-grid">
+                    <span class="format">.mp3</span>
+                    <span class="format">.wav</span>
+                    <span class="format">.aac</span>
+                    <span class="format">.flac</span>
+                    <span class="format">.ogg</span>
+                    <span class="format">.m4a</span>
+                    <span class="format">.wma</span>
+                    <span class="format">.ac3</span>
+                    <span class="format">.amr</span>
+                </div>
+            </div>
 
+            <div class="card image-card">
+                <div class="card-header">
+                    <h5>Image Formats (ffmpeg)</h5>
+                    <span class="icon">🖼️</span>
+                </div>
+                <br>
+                <div class="format-grid">
+                    <span class="format">.jpg</span>
+                    <span class="format">.jpeg</span>
+                    <span class="format">.png</span>
+                    <span class="format">.bmp</span>
+                    <span class="format">.tiff</span>
+                    <span class="format">.webp</span>
+                </div>
+            </div>
 
+            <div class="card document-card">
+                <div class="card-header">
+                    <h5>Office Formats (libreoffice)</h5>
+                    <span class="icon">📊</span>
+                </div>
+                <br>
+                <div class="format-groups">
+                    <div class="format-group">
+                        <h3>Spreadsheets</h3>
+                        <div class="format-grid">
+                            <span class="format">.xls</span>
+                            <span class="format">.xlsx</span>
+                            <span class="format">.ods</span>
+                        </div>
+                    </div>
+                    <div class="format-group">
+                        <h3>Presentations</h3>
+                        <div class="format-grid">
+                            <span class="format">.ppt</span>
+                            <span class="format">.pptx</span>
+                            <span class="format">.odp</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+            <div class="card pandoc-card">
+                <div class="card-header">
+                    <h5>Document & Publishing Formats (pandoc)</h5>
+                    <span class="icon">📚</span>
+                </div>
+                <br>
+                <div class="format-groups">
+                    <div class="format-group">
+                        <h3>Markdown & Text</h3>
+                        <div class="format-grid">
+                            <span class="format">.md</span>
+                            <span class="format">.rst</span>
+                            <span class="format">.asciidoc</span>
+                            <span class="format">.org</span>
+                            <span class="format">.muse</span>
+                            <span class="format">.textile</span>
+                            <span class="format">.markua</span>
+                            <span class="format">.txt2tags</span>
+                            <span class="format">.djot</span>
+                        </div>
+                    </div>
+                    <div class="format-group">
+                        <h3>Web & eBooks</h3>
+                        <div class="format-grid">
+                            <span class="format">.html</span>
+                            <span class="format">.xhtml</span>
+                            <span class="format">.html5</span>
+                            <span class="format">.epub</span>
+                        </div>
+                    </div>
+                    <div class="format-group">
+                        <h3>Technical Documentation</h3>
+                        <div class="format-grid">
+                            <span class="format">.texinfo</span>
+                            <span class="format">.haddock</span>
+                            <span class="format">.roff-man</span>
+                            <span class="format">.roff-ms</span>
+                            <span class="format">.mdoc-man</span>
+                            <span class="format">.latex</span>
+                            <span class="format">.context</span>
+                        </div>
+                    </div>
+                    <div class="format-group">
+                        <h3>Scientific & Academic</h3>
+                        <div class="format-grid">
+                            <span class="format">.docbook</span>
+                            <span class="format">.jats</span>
+                            <span class="format">.bits</span>
+                            <span class="format">.tei</span>
+                            <span class="format">.bibtex</span>
+                            <span class="format">.biblatex</span>
+                            <span class="format">.csl-json</span>
+                            <span class="format">.csl-yaml</span>
+                            <span class="format">.ris</span>
+                            <span class="format">.endnote</span>
+                        </div>
+                    </div>
+                    <div class="format-group">
+                        <h3>Office Documents</h3>
+                        <div class="format-grid">
+                            <span class="format">.docx</span>
+                            <span class="format">.rtf</span>
+                            <span class="format">.odt</span>
+                            <span class="format">.opml</span>
+                        </div>
+                    </div>
+                    <div class="format-group">
+                        <h3>Wiki & Slides</h3>
+                        <div class="format-grid">
+                            <span class="format">.mediawiki</span>
+                            <span class="format">.dokuwiki</span>
+                            <span class="format">.twiki</span>
+                            <span class="format">.vimwiki</span>
+                            <span class="format">.xwiki</span>
+                            <span class="format">.zimwiki</span>
+                            <span class="format">.beamer</span>
+                            <span class="format">.slidy</span>
+                            <span class="format">.revealjs</span>
+                            <span class="format">.slideous</span>
+                            <span class="format">.s5</span>
+                            <span class="format">.dzslides</span>
+                        </div>
+                    </div>
+                    <div class="format-group">
+                        <h3>Data & Code</h3>
+                        <div class="format-grid">
+                            <span class="format">.csv</span>
+                            <span class="format">.tsv</span>
+                            <span class="format">.ipynb</span>
+                            <span class="format">.icml</span>
+                            <span class="format">.typst</span>
+                            <span class="format">.ansi-text</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    </div>
-</body>
-<style>
-    body {
-        background-color: #1B1B1B;
-        color: white;
-        font-family: Arial, sans-serif;
-        width: 80%;
-        margin: 0 auto;
-        /* Zentriert den Inhalt */
-    }
+        <section class="exp">
+            <h5>What are these formats?</h5>
+            <div class="info-grid">
+                <p><b>Video Formats:</b> Common digital video containers supporting different codecs and quality levels.</p>
+                <p><b>Audio Formats:</b> Various sound file types for music, voice, and other audio content.</p>
+                <p><b>Image Formats:</b> Standard image file types for photos, graphics, and web images.</p>
+                <p><b>Office Formats:</b> Microsoft Office and OpenDocument formats for everyday business documents.</p>
+                <p><b>Document & Publishing:</b> Specialized formats for technical writing, academic publishing, and web content creation.</p>
+                <p><b>Data & Code:</b> Formats for data exchange, coding notebooks, and technical documentation.</p>
+            </div>
+        </section>
+    </main>
 
-    .header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .logo,
-    .link {
-        padding: 10px;
-        margin: 5px;
-        font-size: 20px;
-        /* Einheitliche Schriftgröße */
-    }
-
-    .logo {
-        text-align: left;
-        color: #94EBEB;
-    }
-
-    .link {
-        text-align: right;
-        color: white;
-    }
-
-    .link a {
-        text-decoration: none;
-        color: white;
-    }
-
-    .link a:hover {
-        color: #a0a0a0;
-        transition: all 0.3s;
-    }
-
-
-
-    table {
-        border-collapse: collapse;
-        /* Entfernt Lücken zwischen den Zellen */
-        text-align: center;
-        width: 100%;
-    }
-    h5{
-        font-size: 25px;
-        color: #94EBEB;
-        text-align: center;
-    }
-    table td,
-    table tr {
-        vertical-align: middle;
-        text-align: center;
-    }
-
-    tr {
-        border-bottom: 1px solid #94EBEB;
-        /* Fügt eine weiße Linie unter jeder Zelle hinzu */
-    }
-
-    tr p {
-        font-size: 25px;
-    }
-
-    .exp {
-        margin-top: 50px;
-        margin-left: 11%;
-        margin-right: 11%;
-    }
-
-    .exp p {
-        font-size: 20px;
-    }
-    @media (max-width: 600px) {
-        body{
-            width: 95%;
-            margin: 0 auto; 
+    <style>
+        /* Previous styles remain the same */
+        body {
+            background-color: #1B1B1B;
+            color: white;
+            font-family: Arial, sans-serif;
+            width: 80%;
+            margin: 0 auto;
         }
+
+        .format-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        /* New styles for card layout */
+        .card {
+            background-color: #252525;
+            border-radius: 8px;
+            padding: 1.5rem;
+            height: fit-content;
+        }
+
+        /* Style for full-width cards */
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        /* Make last card full width if it would be alone */
+        .format-cards > .card:last-child:nth-child(2n + 1) {
+            grid-column: 1 / -1;
+        }
+
+        /* Rest of the previous styles remain the same */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+
+        .logo, .link {
+            padding: 10px;
+            margin: 5px;
+            font-size: 20px;
+        }
+
+        .logo {
+            text-align: left;
+            color: #94EBEB;
+        }
+
+        .link {
+            text-align: right;
+        }
+
+        .link a {
+            text-decoration: none;
+            color: white;
+        }
+
+        .link a:hover {
+            color: #a0a0a0;
+            transition: all 0.3s;
+        }
+
+        h5 {
+            font-size: 25px;
+            color: #94EBEB;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .format-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 0.5rem;
+        }
+
+        .format {
+            background-color: #333;
+            padding: 0.5rem;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .format:hover {
+            background-color: #94EBEB;
+            color: #1B1B1B;
+        }
+
         .exp {
-            margin-left: 5%;
-            margin-left: 5%;
+            margin-top: 50px;
+            margin-left: 11%;
+            margin-right: 11%;
         }
 
-    }
-</style>
+        .exp p {
+            font-size: 20px;
+            margin-bottom: 1rem;
+        }
 
+        /* Updated media queries */
+        @media (max-width: 768px) {
+            body {
+                width: 95%;
+                padding: 10px;
+            }
+            
+            .format-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                grid-column: 1 / -1 !important;
+            }
+
+            .exp {
+                margin-left: 5%;
+                margin-right: 5%;
+            }
+        }
+
+        @media (max-width: 400px) {
+            body {
+                width: 100%;
+                padding: 5px;
+            }
+
+            .card {
+                padding: 1rem;
+            }
+        }
+    </style>
+    
+</body>
 </html>
